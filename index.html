@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Registration</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 60px auto;
+      padding: 0 20px;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    p.sub {
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 24px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #3ecf8e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Class Registration</h1>
+<p class="sub">Fill in your details below to register.</p>
+
+<form id="registerForm">
+
+  <label for="full_name">Full Name</label>
+  <input
+    type="text"
+    id="full_name"
+    required
+  >
+
+  <label for="email">Email (Gmail)</label>
+  <input
+    type="email"
+    id="email"
+    required
+  >
+
+  <label for="phone">Phone Number</label>
+  <input
+    type="tel"
+    id="phone"
+  >
+
+  <button type="submit" id="submitBtn">
+    Register
+  </button>
+
+</form>
+
+<div id="message"></div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://ebcjwbxufsxygfvzjckz.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViY2p3Ynh1ZnN4eWdmdnpqY2t6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNTE4MTUsImV4cCI6MjEwMDkyNzgxNX0.PYrRy6TUBTnUb8BBGdU7UzB79tjKE_bhw0u0dyj1wkI";
+
+
+// Create Supabase client
+const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
+const submitBtn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Registering...";
+
+    message.textContent = "";
+    message.className = "";
+
+    const full_name = document
+        .getElementById("full_name")
+        .value
+        .trim();
+
+    const email = document
+        .getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const phone = document
+        .getElementById("phone")
+        .value
+        .trim();
+
+    const { error } = await client
+        .from("students")
+        .insert([
+            {
+                full_name,
+                email,
+                phone
+            }
+        ]);
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Register";
+
+    if(error){
+
+        console.error(error);
+
+        message.classList.add("error");
+
+        if(error.code === "23505"){
+            message.textContent =
+            "This email is already registered.";
+        }
+        else{
+            message.textContent =
+            error.message;
+        }
+
+        return;
+    }
+
+    message.classList.add("success");
+    message.textContent =
+    "Registration successful!";
+
+    form.reset();
+
+});
+
+</script>
+
+</body>
+</html>
