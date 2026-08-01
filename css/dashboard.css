@@ -1,0 +1,311 @@
+/* ==========================================
+   VALMS STUDENT DASHBOARD
+========================================== */
+:root{
+    --primary:#34C759;
+    --primary-dark:#28A745;
+    --secondary:#EAFBF0;
+    --background:#F5F7FA;
+    --white:#FFFFFF;
+    --text:#1F2937;
+    --muted:#6B7280;
+    --border:#E5E7EB;
+    --danger:#E53935;
+    --shadow:0 12px 30px rgba(0,0,0,.08);
+    --radius:18px;
+    --transition:.3s ease;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--background);
+    color:var(--text);
+}
+
+/* ==========================
+Wrapper
+========================== */
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ==========================
+Sidebar
+========================== */
+.sidebar{
+    width:260px;
+    background:var(--white);
+    box-shadow:var(--shadow);
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    z-index:1000;
+    transition:var(--transition);
+}
+
+.logo{
+    padding:35px 30px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo h2{
+    color:var(--primary);
+    font-size:24px;
+}
+
+.logo p{
+    color:var(--muted);
+    margin-top:5px;
+    font-size:14px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    flex:1;
+}
+
+.sidebar nav a{
+    text-decoration:none;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 18px;
+    border-radius:14px;
+    margin-bottom:12px;
+    transition:var(--transition);
+    font-weight:500;
+}
+
+.sidebar nav a:hover{
+    background:var(--secondary);
+}
+
+.sidebar nav a.active{
+    background:var(--primary);
+    color:white;
+}
+
+.sidebar nav .logoutBtn{
+    margin-top:auto;
+    color:var(--danger);
+}
+
+/* ==========================
+Main
+========================== */
+.main{
+    margin-left:260px;
+    flex:1;
+    padding:35px;
+}
+
+/* ==========================
+Top Bar
+========================== */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.topbar h2{
+    font-size:24px;
+}
+
+.menu-btn{
+    display:none;
+    border:none;
+    background:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* ==========================
+Avatar
+========================== */
+.top-icons{
+    position:relative;
+}
+
+.avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    font-weight:600;
+    font-size:18px;
+    transition:var(--transition);
+}
+
+.avatar:hover{
+    background:var(--primary-dark);
+}
+
+/* ==========================
+Profile Menu
+========================== */
+.profile-menu{
+    position:absolute;
+    right:0;
+    top:65px;
+    width:220px;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    display:none;
+}
+
+.profile-menu.show{
+    display:block;
+}
+
+.profile-menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 18px;
+    text-decoration:none;
+    color:var(--text);
+    transition:var(--transition);
+}
+
+.profile-menu a:hover{
+    background:var(--secondary);
+}
+
+/* ==========================
+Welcome
+========================== */
+.welcome{
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:24px;
+}
+
+#studentName{
+    color:var(--primary);
+}
+
+.welcome p{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+/* ==========================
+Matric Card
+========================== */
+.matric-card{
+    background:white;
+    padding:30px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+}
+
+.matric-card h3{
+    color:var(--muted);
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.matric-card h1{
+    color:var(--primary);
+    font-size:24px;
+    font-weight:700;
+}
+
+/* ==========================
+Panels
+========================== */
+
+.panel{
+    background:white;
+    padding:30px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+}
+
+.panel h2{
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.panel p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* ==========================
+Overlay
+========================== */
+
+.overlay{
+    display:none;
+}
+
+/* ==========================
+Responsive
+========================== */
+
+@media(max-width:900px){
+    .menu-btn{
+        display:block;
+    }
+
+    .sidebar{
+        left:-280px;
+    }
+
+    .sidebar.show{
+        left:0;
+    }
+
+    .overlay.show{
+        display:block;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,.4);
+        z-index:900;
+    }
+
+    .main{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .welcome h1{
+        font-size:18px;
+    }
+
+    .matric-card h1{
+        font-size:16px;
+    }
+}
+

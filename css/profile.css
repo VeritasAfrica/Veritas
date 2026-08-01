@@ -1,0 +1,337 @@
+/*
+==========================================
+VALMS Student Profile
+==========================================
+*/
+
+:root{
+    --primary:#34C759;
+    --primary-dark:#28A745;
+    --secondary:#EAFBF0;
+    --background:#F5F7FA;
+    --white:#FFFFFF;
+    --text:#1F2937;
+    --muted:#6B7280;
+    --border:#E5E7EB;
+    --danger:#E53935;
+    --shadow:0 15px 40px rgba(0,0,0,.08);
+    --radius:18px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--background);
+    color:var(--text);
+}
+
+/* ==========================
+Wrapper
+========================== */
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ==========================
+Sidebar
+========================== */
+
+.sidebar{
+    width:270px;
+    background:white;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    transition:.35s;
+    z-index:1000;
+}
+
+.logo{
+    padding:35px 30px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo h2{
+    color:var(--primary);
+    font-size:28px;
+}
+
+.logo p{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+}
+
+.sidebar nav a{
+    text-decoration:none;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px 18px;
+    margin-bottom:10px;
+    border-radius:14px;
+    transition:.25s;
+}
+
+.sidebar nav a:hover{
+    background:var(--secondary);
+}
+
+.sidebar nav a.active{
+    background:var(--primary);
+    color:white;
+}
+
+.sidebar nav a:last-child{
+    margin-top:auto;
+    color:var(--danger);
+}
+
+/* ==========================
+Main
+========================== */
+
+.main{
+    margin-left:270px;
+    flex:1;
+    padding:35px;
+}
+
+/* ==========================
+Topbar
+========================== */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.menu-btn{
+    display:none;
+    border:none;
+    background:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.top-icons{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.top-icons button{
+    border:none;
+    background:white;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+}
+
+.avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:600;
+}
+
+/* ==========================
+Profile Card
+========================== */
+
+.profile-card{
+    max-width:900px;
+    width:100%;
+    margin:0 auto;
+    background:#fff;
+    border-radius:22px;
+    padding:45px;
+    box-shadow:var(--shadow);
+}
+
+.profile-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.profile-avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.profile-header h2{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.profile-header p{
+    color:var(--muted);
+    font-weight:300;
+}
+
+.profile-details{
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.detail-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    align-items:center;
+    padding:18px 28px;
+    border-bottom:1px solid #F1F5F9;
+}
+
+.detail-row:last-child{
+    border-bottom:none;
+}
+
+.detail-row span{
+    color:#6B7280;
+    font-size:15px;
+    font-weight:500;
+}
+
+.detail-row strong{
+    color:#1F2937;
+    font-size:16px;
+    font-weight:600;
+    text-align:left;
+}
+
+.profile-info{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.profile-info h2{
+    font-size:42px;
+    font-weight:700;
+    color:#1F2937;
+    line-height:1.2;
+    margin-top:18px;
+    margin-bottom:8px;
+}
+
+.profile-info p{
+    margin-top:8px;
+    color:#6B7280;
+    font-size:15px;
+}
+
+/* ==========================
+Overlay
+========================== */
+
+.overlay{
+    display:none;
+}
+
+/* ==========================
+Responsive
+========================== */
+
+@media(max-width:900px){
+.menu-btn{
+display:block;
+}
+
+.sidebar{
+left:-280px;
+}
+
+.sidebar.show{
+left:0;
+}
+
+.overlay.show{
+display:block;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.35);
+z-index:900;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.profile-details{
+grid-template-columns:1fr;
+}
+
+.profile-card{
+padding:25px;
+}
+}
+
+
+@media(max-width:768px){
+    .profile-card{
+        padding:25px;
+    }
+    
+    .profile-info h2{
+        font-size:30px;
+    }
+
+    .detail-row{
+        display:block;
+        padding:18px 20px;
+    }
+
+    .detail-row span{
+        display:block;
+        margin-bottom:8px;
+    }
+
+    .detail-row strong{
+        display:block;
+        text-align:left;
+        max-width:100%;
+    }
+}

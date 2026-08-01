@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verified | VALMS</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .success-icon{
+            width:90px;
+            height:90px;
+            margin:0 auto 25px;
+            border-radius:50%;
+            background:#34C759;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            font-size:42px;
+        }
+
+        .login-btn{
+            display:block;
+            width:100%;
+            margin-top:35px;
+            padding:15px;
+            background:#34C759;
+            color:white;
+            text-decoration:none;
+            text-align:center;
+            border-radius:10px;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .login-btn:hover{
+            background:#2dae4b;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="login-card">
+        <div class="logo">
+            <h1>VALMS</h1>
+        </div>
+
+        <div class="success-icon" id="successIcon">
+            ✓
+        </div>
+
+        <h2 id="verifyTitle">
+            Email Verified Successfully
+        </h2>
+
+        <br>
+
+        <p class="subtitle" id="verifyMessage" style="text-align:center;">
+            Your account has been successfully verified.
+        </p>
+
+        <br>
+
+        <p style="text-align:center;">
+            You can now log in to access your student portal.
+        </p>
+
+        <a href="login.html" class="login-btn" id="loginBtn">
+            Login to VALMS
+        </a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/verified.js"></script>
+
+</body>
+</html>

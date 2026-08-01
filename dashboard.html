@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VALMS | Student Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+
+    <div class="overlay" id="overlay"></div>
+    <div class="wrapper">
+        <!-- ==========================
+             Sidebar
+        =========================== -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="logo">
+                <h2>VALMS</h2>
+                <p>Student Portal</p>
+
+            </div>
+
+            <nav>
+                <a href="#" class="active">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+                
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    My Profile
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-book"></i>
+                    Courses
+                </a>
+
+                <a href="#" class="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- ==========================
+             Main Content
+        =========================== -->
+        <main class="main">
+            <!-- Top Navigation -->
+            <header class="topbar">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <h2>Dashboard</h2>
+
+                <div class="top-icons">
+                    <div class="avatar" id="avatarBtn">
+                        SB
+                    </div>
+                </div>
+
+            </header>
+
+            <!-- Welcome -->
+            <section class="welcome">
+                <h1>
+                    <span id="welcomeMessage">
+                        Good Morning,
+                    </span>
+
+                    <span id="studentName">
+                        Student
+                    </span>
+                    👋
+                </h1>
+
+                <p>
+                    Welcome back to VALMS.
+                </p>
+
+            </section>
+
+            <!-- Matric Number -->
+            <section class="matric-card">
+                <h3>
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Matric Number
+                </h3>
+
+                <h1 id="matric">
+                    Pending Assignment
+                </h1>
+
+            </section>
+
+            <!-- Today's Schedule -->
+            <section class="panel">
+                <h2>
+                    📅 Today's Schedule
+                </h2>
+
+                <p>
+                    No classes scheduled today.
+                </p>
+
+            </section>
+
+            <!-- Announcements -->
+            <section class="panel">
+                <h2>
+                    📢 Announcements
+                </h2>
+
+                <p>
+                    No announcements at the moment.
+                </p>
+
+            </section>
+
+            <!-- Notifications -->
+            <section class="panel">
+                <h2>
+                    🔔 Notifications
+                </h2>
+
+                <p>
+                    You're all caught up.
+                </p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/auth.js"></script>
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

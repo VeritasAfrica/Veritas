@@ -1,202 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 480px;
-      margin: 60px auto;
-      padding: 0 20px;
-      color: #222;
-    }
+    <title>Veritas Africa LMS | Student Registration</title>
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 4px;
-    }
+    <link rel="stylesheet" href="css/style.css">
 
-    p.sub {
-      color: #666;
-      margin-top: 0;
-      margin-bottom: 24px;
-    }
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    label {
-      display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-
-    button {
-      margin-top: 24px;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background: #3ecf8e;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background: #999;
-      cursor: not-allowed;
-    }
-
-    #message {
-      margin-top: 16px;
-      font-size: 14px;
-    }
-
-    .success {
-      color: green;
-    }
-
-    .error {
-      color: red;
-    }
-  </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
-<h1>Class Registration</h1>
-<p class="sub">Fill in your details below to register.</p>
+<div class="page">
+    <div class="card">
+        <div class="header">
+            <!-- Replace with your logo later -->
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
 
-<form id="registerForm">
+            <h1>Veritas Africa LMS</h1>
 
-  <label for="full_name">Full Name</label>
-  <input
-    type="text"
-    id="full_name"
-    required
-  >
+            <p>
+                Future Technology Training Program
+            </p>
 
-  <label for="email">Email (Gmail)</label>
-  <input
-    type="email"
-    id="email"
-    required
-  >
+            <div class="status open">
+                Registration Open
+            </div>
 
-  <label for="phone">Phone Number</label>
-  <input
-    type="tel"
-    id="phone"
-  >
+        </div>
 
-  <button type="submit" id="submitBtn">
-    Register
-  </button>
+        <form id="registerForm">
+            <div class="grid">
+                <div class="form-group">
+                    <label>First Name *</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        required
+                        autocomplete="given-name"
+                    >
+                </div>
 
-</form>
+                <div class="form-group">
+                    <label>Middle Name</label>
+                    <input
+                        type="text"
+                        id="middle_name"
+                        autocomplete="additional-name"
+                    >
+                </div>
 
-<div id="message"></div>
+            </div>
 
-<!-- Supabase -->
+            <div class="form-group">
+                <label>Last Name *</label>
+                <input
+                    type="text"
+                    id="last_name"
+                    required
+                    autocomplete="family-name"
+                >
+
+            </div>
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input
+                    type="email"
+                    id="email"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+
+            <div class="grid">
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        required
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="country">Country</label>
+
+                    <select
+                        id="country"
+                        required
+                    >
+                        <option value="">
+                            Select Country
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password *</label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        data-target="password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
+
+                <div class="strength">
+
+                    <div id="strengthBar"></div>
+
+                </div>
+
+                <small id="strengthText">
+                    Password Strength
+                </small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Confirm Password *</label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        data-target="confirm_password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <label class="checkbox">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
+                <span>
+                    I agree to the Terms & Conditions
+                </span>
+
+            </label>
+
+            <button
+                id="submitBtn"
+                type="submit"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+        <div id="message"></div>
+
+        <div class="footer">
+
+            Already have an account?
+
+            <a href="login.html">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
+<script src="js/config.js"></script>
 
-const SUPABASE_URL =
-"https://ebcjwbxufsxygfvzjckz.supabase.co";
+<script src="js/utils.js"></script>
 
-const SUPABASE_ANON_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViY2p3Ynh1ZnN4eWdmdnpqY2t6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNTE4MTUsImV4cCI6MjEwMDkyNzgxNX0.PYrRy6TUBTnUb8BBGdU7UzB79tjKE_bhw0u0dyj1wkI";
+<script src="js/validation.js"></script>
 
+<script src="js/ui.js"></script>
 
-// Create Supabase client
-const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+<script src="js/auth.js"></script>
 
-const form = document.getElementById("registerForm");
-const message = document.getElementById("message");
-const submitBtn = document.getElementById("submitBtn");
+<script src="js/profile.js"></script>
 
-form.addEventListener("submit", async function(e){
+<script src="js/countries.js"></script>
 
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Registering...";
-
-    message.textContent = "";
-    message.className = "";
-
-    const full_name = document
-        .getElementById("full_name")
-        .value
-        .trim();
-
-    const email = document
-        .getElementById("email")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const phone = document
-        .getElementById("phone")
-        .value
-        .trim();
-
-    const { error } = await client
-        .from("students")
-        .insert([
-            {
-                full_name,
-                email,
-                phone
-            }
-        ]);
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Register";
-
-    if(error){
-
-        console.error(error);
-
-        message.classList.add("error");
-
-        if(error.code === "23505"){
-            message.textContent =
-            "This email is already registered.";
-        }
-        else{
-            message.textContent =
-            error.message;
-        }
-
-        return;
-    }
-
-    message.classList.add("success");
-    message.textContent =
-    "Registration successful!";
-
-    form.reset();
-
-});
-
-</script>
+<script src="js/register.js"></script>
 
 </body>
 </html>
