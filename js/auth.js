@@ -17,7 +17,7 @@ async function registerStudent(student) {
         options: {
 
             emailRedirectTo:
-                "http://127.0.0.1:5500/verified.html",
+                "https://veritasafrica.github.io/Veritas/verified.html",
 
             data: {
                 first_name: student.firstName,
