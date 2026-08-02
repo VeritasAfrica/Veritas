@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students | VALMS</title>
+
+  <link rel="stylesheet" href="css/students.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div id="overlay"></div>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <h1>VALMS</h1>
+        <p>Administration Portal</p>
+      </div>
+
+      <ul class="menu">
+        <li>
+          <a href="admin.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="students.html">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Students</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="lecturers.html">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Lecturers</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="departments.html">
+            <i class="fa-solid fa-building"></i>
+            <span>Departments</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="courses.html">
+            <i class="fa-solid fa-book"></i>
+            <span>Courses</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="allocation.html">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Course Allocation</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="announcements.html">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Announcements</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <div class="page-header">
+
+        <div class="page-header-left">
+          <button id="menuBtn" class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <div>
+            <h1>Students</h1>
+            <p>Manage all registered students.</p>
+          </div>
+        </div>
+
+        <button id="generateMatric">
+          <i class="fa-solid fa-id-card"></i>
+          Generate Matric Numbers
+        </button>
+
+      </div>
+
+      <!-- Cards -->
+      <section class="cards">
+
+        <div class="stat">
+          <h4>Total Students</h4>
+          <h2 id="totalStudents">0</h2>
+        </div>
+
+        <div class="stat">
+          <h4>Assigned Matric</h4>
+          <h2 id="assignedMatric">0</h2>
+        </div>
+
+        <div class="stat">
+          <h4>Pending Matric</h4>
+          <h2 id="pendingMatric">0</h2>
+        </div>
+
+        <div class="stat">
+          <h4>International</h4>
+          <h2 id="internationalStudents">0</h2>
+        </div>
+
+      </section>
+
+      <!-- Filters -->
+      <section class="filters">
+        <input type="text" id="searchStudent" placeholder="Search student...">
+
+        <select id="filterYear">
+          <option value="">Admission Year</option>
+        </select>
+
+        <select id="filterCountry">
+          <option value="">Country</option>
+        </select>
+      </section>
+
+      <!-- Students Table -->
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Admission</th>
+              <th>Matric</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="studentTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/students.js"></script>
+
+</body>
+</html>

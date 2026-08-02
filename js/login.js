@@ -86,10 +86,17 @@ form.addEventListener("submit", async (e) => {
 
     if (error) {
 
-        if (error.message.toLowerCase().includes("email")) {
+        /* if (error.message.toLowerCase().includes("email")) {
             message.style.color = "#e53935";
             message.innerHTML =
-                "Please verify your email before logging in.";
+                "Please verify your email before logging in."; */
+                
+        if (error.message.toLowerCase().includes("invalid")) {
+
+            message.style.color = "#e53935";
+
+            message.innerHTML =
+                "Incorrect email or password.";
 
         } else if (
             error.message.toLowerCase().includes("invalid")

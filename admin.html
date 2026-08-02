@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VALMS Admin</title>
+
+  <link rel="stylesheet" href="css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div id="overlay"></div>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <h1>VALMS</h1>
+        <p>Administration Portal</p>
+      </div>
+
+      <ul class="menu">
+        <li class="active">
+          <a href="admin.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="students.html">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Students</span>
+          </a>
+        </li>
+
+        <!--
+        <li>
+          <a href="lecturers.html">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Lecturers</span>
+          </a>
+        </li>
+        -->
+
+        <!--
+        <li>
+          <a href="departments.html">
+            <i class="fa-solid fa-building"></i>
+            <span>Departments</span>
+          </a>
+        </li>
+        -->
+
+        <li>
+          <a href="courses.html">
+            <i class="fa-solid fa-book"></i>
+            <span>Courses</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="allocation.html">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Course Allocation</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="attendance.html">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="results.html">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <span>Results</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="announcements.html">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Announcements</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="profile">
+          <div class="avatar">SB</div>
+          <div>
+            <h4>Samuel</h4>
+            <p>Administrator</p>
+          </div>
+        </div>
+
+        <button id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Top -->
+      <header class="topbar">
+
+        <div class="top-row">
+          <div class="left-side">
+            <button id="menuBtn" class="menu-btn">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h2 class="page-title">Dashboard</h2>
+          </div>
+
+          <div class="right-side">
+            <button><i class="fa-regular fa-envelope"></i></button>
+            <button><i class="fa-regular fa-bell"></i></button>
+            <div class="admin-avatar">SB</div>
+          </div>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" placeholder="Search students, lecturers, courses...">
+        </div>
+
+      </header>
+
+      <!-- Cards -->
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Total Students</h4>
+            <h2 id="studentCount">0</h2>
+            <p>+12% this month</p>
+          </div>
+          <i class="fa-solid fa-user-graduate"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Lecturers</h4>
+            <h2 id="lecturerCount">0</h2>
+            <p>Active Staff</p>
+          </div>
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Courses</h4>
+            <h2 id="courseCount">0</h2>
+            <p>Available</p>
+          </div>
+          <i class="fa-solid fa-book"></i>
+        </div>
+
+        <div class="card purple">
+          <div>
+            <h4>Departments</h4>
+            <h2 id="departmentCount">0</h2>
+            <p>Faculties</p>
+          </div>
+          <i class="fa-solid fa-building"></i>
+        </div>
+
+      </section>
+
+      <!-- Charts -->
+      <section class="chart-grid">
+
+        <div class="chart-card">
+          <div class="card-title">
+            <h3>Attendance Trend</h3>
+          </div>
+          <canvas id="attendanceChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <div class="card-title">
+            <h3>Student Distribution</h3>
+          </div>
+          <canvas id="departmentChart"></canvas>
+        </div>
+
+      </section>
+
+      <!-- Bottom Section -->
+      <section class="bottom-grid">
+
+        <!-- Recent Registrations -->
+        <div class="table-card">
+          <div class="card-title">
+            <h3>Recent Student Registrations</h3>
+            <a href="students.html">View All</a>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+          </table>
+        </div>
+
+        <!-- Pending Actions -->
+        <div class="pending-card">
+          <div class="card-title">
+            <h3>Pending Actions</h3>
+          </div>
+
+          <div class="pending-list">
+
+            <div class="pending-item">
+              <div>
+                <i class="fa-solid fa-id-card"></i>
+                <span>Students Awaiting Matric Number</span>
+              </div>
+              <span class="badge">15</span>
+            </div>
+
+            <div class="pending-item">
+              <div>
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Lecturer Registrations</span>
+              </div>
+              <span class="badge">3</span>
+            </div>
+
+            <div class="pending-item">
+              <div>
+                <i class="fa-solid fa-book"></i>
+                <span>Course Approval Requests</span>
+              </div>
+              <span class="badge">5</span>
+            </div>
+
+            <div class="pending-item">
+              <div>
+                <i class="fa-solid fa-building"></i>
+                <span>Department Requests</span>
+              </div>
+              <span class="badge">2</span>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions">
+
+        <button>
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Add Student</span>
+        </button>
+
+        <button id="generateMatric">
+          <i class="fa-solid fa-id-card"></i>
+          <span>Generate Matric Numbers</span>
+        </button>
+
+        <button>
+          <i class="fa-solid fa-book"></i>
+          <span>Create Course</span>
+        </button>
+
+        <button>
+          <i class="fa-solid fa-bullhorn"></i>
+          <span>Announcement</span>
+        </button>
+
+        <button>
+          <i class="fa-solid fa-user-check"></i>
+          <span>Assign Lecturer</span>
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

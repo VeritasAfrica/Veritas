@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Details | VALMS</title>
+
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/student-details.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- Sidebar -->
+<aside class="sidebar">
+
+<div class="logo">
+<h1>VALMS</h1>
+<p>Administration Portal</p>
+</div>
+
+<ul class="menu">
+
+<li>
+<a href="admin.html">
+<i class="fa-solid fa-chart-line"></i>
+<span>Dashboard</span>
+</a>
+</li>
+
+<li class="active">
+<a href="students.html">
+<i class="fa-solid fa-user-graduate"></i>
+<span>Students</span>
+</a>
+</li>
+
+<li>
+<a href="lecturers.html">
+<i class="fa-solid fa-chalkboard-user"></i>
+<span>Lecturers</span>
+</a>
+</li>
+
+<li>
+<a href="departments.html">
+<i class="fa-solid fa-building"></i>
+<span>Departments</span>
+</a>
+</li>
+
+<li>
+<a href="courses.html">
+<i class="fa-solid fa-book"></i>
+<span>Courses</span>
+</a>
+</li>
+
+<li>
+<a href="attendance.html">
+<i class="fa-solid fa-calendar-check"></i>
+<span>Attendance</span>
+</a>
+</li>
+
+<li>
+<a href="results.html">
+<i class="fa-solid fa-square-poll-vertical"></i>
+<span>Results</span>
+</a>
+</li>
+
+<li>
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+<span>Settings</span>
+</a>
+</li>
+
+</ul>
+
+<div class="sidebar-footer">
+
+<div class="profile">
+
+<div class="avatar" id="adminAvatar">
+SB
+</div>
+
+<div>
+
+<h4 id="adminName">
+Administrator
+</h4>
+
+<p>
+System Admin
+</p>
+
+</div>
+
+</div>
+
+<button id="logoutBtn">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</button>
+
+</div>
+
+</aside>
+
+<!-- Main -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<a href="students.html" class="back-link">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back to Students
+
+</a>
+
+<h1 class="page-title">
+Student Details
+</h1>
+
+</div>
+
+</header>
+
+<!-- Profile -->
+
+<section class="student-profile-card">
+
+<div class="student-avatar" id="studentAvatar">
+--
+</div>
+
+<div>
+
+<h2 id="studentFullName">
+Loading...
+</h2>
+
+<p id="studentMatric">
+Pending Assignment
+</p>
+
+<span class="status active" id="studentStatus"> 
+</span>
+
+</div>
+
+</section>
+
+<!-- Personal -->
+
+<section class="details-card">
+
+<h3>Personal Information</h3>
+
+<div class="form-grid">
+
+<div>
+
+<label>First Name</label>
+
+<input
+type="text"
+id="first_name">
+
+</div>
+
+<div>
+
+<label>Middle Name</label>
+
+<input
+type="text"
+id="middle_name">
+
+</div>
+
+<div>
+
+<label>Last Name</label>
+
+<input
+type="text"
+id="last_name">
+
+</div>
+
+<div>
+
+<label>Email</label>
+
+<input
+type="email"
+id="email">
+
+</div>
+
+<div>
+
+<label>Phone</label>
+
+<input
+type="text"
+id="phone">
+
+</div>
+
+<div>
+
+<label>Country</label>
+
+<input
+type="text"
+id="country">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Academic -->
+
+<section class="details-card">
+
+<h3>Academic Information</h3>
+
+<div class="form-grid">
+
+<div>
+
+<label>Admission Year</label>
+
+<input
+type="text"
+id="admission_year">
+
+</div>
+
+<div>
+
+<label>Cohort</label>
+
+<input
+type="text"
+id="cohort">
+
+</div>
+
+<div>
+
+<label>Matric Number</label>
+
+<input
+type="text"
+id="matric_number"
+readonly>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Actions -->
+
+<section class="action-buttons">
+
+<button id="saveStudent" class="assign-btn">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Changes
+
+</button>
+
+<button id="resetPassword" class="view-btn">
+
+<i class="fa-solid fa-key"></i>
+
+Reset Password
+
+</button>
+
+<button id="deleteStudent" class="delete-btn">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete Student
+
+</button>
+
+</section>
+
+</main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/student-details.js"></script>
+
+</body>
+</html>

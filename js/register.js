@@ -91,13 +91,30 @@ const { error: insertError } = await client
     last_name: student.lastName,
     email: student.email,
     phone: student.phone,
-    country: student.country
+    country: student.country,
+    admission_year: new Date().getFullYear().toString(),
+    cohort: "01",
+    matric_number: null
 });
 
-if(insertError){
+/* if(insertError){
     console.error(insertError);
+} */
+
+if (insertError) {
+    console.error(insertError);
+    message.style.color = "red";
+    message.innerHTML = insertError.message;
+    return;
 }
 
-window.location.href =
-`verify-email.html?email=${encodeURIComponent(student.email)}`;
-});
+/* window.location.href =
+`verify-email.html?email=${encodeURIComponent(student.email)}`; */
+
+message.style.color = "#34C759";
+message.innerHTML = "Account created successfully. Redirecting to login...";
+
+setTimeout(() => {
+    window.location.href = "login.html";
+}, 1500);
+}); 

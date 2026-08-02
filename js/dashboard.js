@@ -33,27 +33,36 @@ function getGreeting() {
 /* -----------------------------
 Mobile Sidebar
 ------------------------------*/
-menuBtn.addEventListener("click", () => {
-    sidebar.classList.add("show");
-    overlay.classList.add("show");
-});
 
-overlay.addEventListener("click", () => {
-    sidebar.classList.remove("show");
-    overlay.classList.remove("show");
-});
+if (menuBtn && sidebar && overlay) {
+
+    menuBtn.addEventListener("click", () => {
+        sidebar.classList.add("show");
+        overlay.classList.add("show");
+    });
+
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    });
+
+}
 
 /* -----------------------------
 Avatar Dropdown
 ------------------------------*/
-avatarBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    profileMenu.classList.toggle("show");
-});
+if (avatarBtn && profileMenu) {
 
-document.addEventListener("click", () => {
-    profileMenu.classList.remove("show");
-});
+    avatarBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileMenu.classList.toggle("show");
+    });
+
+    document.addEventListener("click", () => {
+        profileMenu.classList.remove("show");
+    });
+
+}
 
 /* -----------------------------
 Load Student
@@ -76,7 +85,7 @@ async function loadStudent() {
         .eq("auth_user_id", user.id)
         .single();
 
-    console.log("Student:", data);
+    /* console.log("Student:", data);
     console.log("First Name:", data.first_name);
     console.log("Last Name:", data.last_name);
     console.log("Error:", error);
@@ -85,7 +94,20 @@ async function loadStudent() {
         console.error(error);
         alert("Unable to load student profile.");
         return;
+    } */
+
+
+    console.log("Student:", data);
+    console.log("Error:", error);
+
+    if (error || !data) {
+        console.error(error);
+        alert("Unable to load student profile.");
+        return;
     }
+
+    console.log("First Name:", data.first_name);
+    console.log("Last Name:", data.last_name);
 
     /* Greeting */
 
