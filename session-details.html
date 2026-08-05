@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session Details | VALMS</title>
+  <link rel="stylesheet" href="css/admin-shell.css">
+
+  <link rel="stylesheet" href="css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+      <div id="topbarMount"></div>
+      <header class="topbar">
+        <div>
+          <h2 id="sessionTitle">Loading...</h2>
+          <p id="sessionType"></p>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button id="publishToggle" class="assign-btn">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="publishToggleText">Publish</span>
+          </button>
+
+          <button id="uploadMaterial" class="view-btn">
+            <i class="fa-solid fa-upload"></i>
+            Upload Material
+          </button>
+        </div>
+      </header>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Materials</h4>
+            <h2 id="materialCount">0</h2>
+          </div>
+          <i class="fa-solid fa-file"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Scheduled</h4>
+            <h2 id="scheduledDate" style="font-size: 20px;">-</h2>
+          </div>
+          <i class="fa-solid fa-calendar"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Status</h4>
+            <h2 id="sessionStatus" style="font-size: 20px;">-</h2>
+          </div>
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Description</h3>
+        </div>
+        <p id="description"></p>
+      </div>
+
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Session Materials</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="materialTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+  window.ADMIN_PAGE = {
+    active: "courses",       // ← this page's key, see table below
+    title: "Session Details",        // ← the page heading
+  };
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/session-details.js"></script>
+
+</body>
+</html>

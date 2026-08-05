@@ -1,0 +1,60 @@
+/*
+=========================================
+VALMS COURSES — PAGE-SPECIFIC ADDITIONS
+(admin.css already covers cards, table,
+search, status badges, view/assign buttons)
+=========================================
+*/
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.top-actions button {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.05);
+  transition: .3s;
+}
+
+.top-actions button:hover {
+  background: #34C759;
+  color: #fff;
+}
+
+.delete-btn {
+  background: #EF4444;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  transition: .3s;
+}
+
+.delete-btn:hover {
+  background: #DC2626;
+}
+
+.status.archived {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+/* Table action buttons sit side by side with spacing */
+#courseTable td button {
+  margin-right: 8px;
+}
+
+#courseTable td button:last-child {
+  margin-right: 0;
+}

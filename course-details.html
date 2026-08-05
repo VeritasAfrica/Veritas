@@ -1,0 +1,150 @@
+<!-- course-details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Details | VALMS</title>
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+
+      <div id="topbarMount"></div>
+      <header class="topbar">
+        <div>
+          <h2 id="courseTitle">Loading...</h2>
+          <p id="courseCode"></p>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button class="assign-btn" id="newSession">
+            <i class="fa-solid fa-plus"></i>
+            New Session
+          </button>
+
+          <button class="view-btn" id="editCourse">
+            <i class="fa-solid fa-pen"></i>
+            Edit Course
+          </button>
+
+          <button class="delete-btn" id="deleteCourse">
+            <i class="fa-solid fa-trash"></i>
+            Delete Course
+          </button>
+        </div>
+      </header>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Status</h4>
+            <h2 id="courseStatus">-</h2>
+          </div>
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Sessions</h4>
+            <h2 id="sessionCount">0</h2>
+          </div>
+          <i class="fa-solid fa-video"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Announcements</h4>
+            <h2 id="announcementCount">0</h2>
+          </div>
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+
+        <div class="card purple">
+          <div>
+            <h4>Materials</h4>
+            <h2 id="materialCount">0</h2>
+          </div>
+          <i class="fa-solid fa-file"></i>
+        </div>
+
+      </section>
+
+      <!-- Course Information -->
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Course Information</h3>
+        </div>
+
+        <p><strong>Department:</strong> <span id="department"></span></p>
+        <br>
+        <p><strong>Description</strong></p>
+        <p id="description"></p>
+      </div>
+
+      <!-- Sessions -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Sessions</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="sessionTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Announcements -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Announcements</h3>
+          <button class="assign-btn" id="newAnnouncement">
+            <i class="fa-solid fa-plus"></i>
+            New Announcement
+          </button>
+        </div>
+
+        <div id="announcementList"></div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+  window.ADMIN_PAGE = {
+    active: "courses",       // ← this page's key, see table below
+    title: "Course Details",        // ← the page heading
+  };
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/course-details.js"></script>
+
+</body>
+</html>

@@ -1,150 +1,121 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/*
+=========================================
+VALMS STUDENT PROFILE (read-only, admin view)
+(sidebar/topbar now live in admin-shell.css —
+this file only holds page-specific content)
+=========================================
+*/
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#F4F7FC;
-    color:#1E293B;
+.profile-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,.05);
+  margin-bottom: 30px;
 }
 
-.container{
-    max-width:900px;
-    margin:40px auto;
-    padding:0 20px;
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #34C759;
+  color: #fff;
+  font-size: 38px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
 }
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
+.profile-card h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
-.header a{
-    text-decoration:none;
-    color:#34C759;
-    font-weight:600;
+.profile-card p {
+  color: #64748B;
+  font-size: 16px;
 }
 
-.header h1{
-    font-size:30px;
+.details {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.05);
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
-.profile-card{
-    background:#fff;
-    border-radius:20px;
-    padding:40px;
-    text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,.05);
-    margin-bottom:30px;
+.row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  padding: 18px 28px;
+  border-bottom: 1px solid #EEF2F7;
+  align-items: center;
 }
 
-.avatar{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:#34C759;
-    color:#fff;
-    font-size:38px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 20px;
+.row:last-child {
+  border-bottom: none;
 }
 
-.profile-card h2{
-    font-size:28px;
-    margin-bottom:8px;
+.row label {
+  font-weight: 600;
+  color: #475569;
 }
 
-.profile-card p{
-    color:#64748B;
-    font-size:16px;
+.row span {
+  color: #1E293B;
 }
 
-.details{
-    background:#fff;
-    border-radius:20px;
-    box-shadow:0 15px 35px rgba(0,0,0,.05);
-    overflow:hidden;
-    margin-bottom:30px;
+.actions {
+  display: flex;
+  gap: 20px;
 }
 
-.row{
-    display:grid;
-    grid-template-columns:220px 1fr;
-    padding:18px 28px;
-    border-bottom:1px solid #EEF2F7;
-    align-items:center;
+.actions button {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.row:last-child{
-    border-bottom:none;
+#editBtn {
+  background: #34C759;
+  color: white;
 }
 
-.row label{
-    font-weight:600;
-    color:#475569;
+#editBtn:hover {
+  background: #28AE4D;
 }
 
-.row span{
-    color:#1E293B;
+#deleteBtn {
+  background: #EF4444;
+  color: white;
 }
 
-.actions{
-    display:flex;
-    gap:20px;
+#deleteBtn:hover {
+  background: #DC2626;
 }
 
-.actions button{
-    flex:1;
-    padding:16px;
-    border:none;
-    border-radius:12px;
-    font-family:'Poppins',sans-serif;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
+@media (max-width: 700px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 
-#editBtn{
-    background:#34C759;
-    color:white;
-}
-
-#editBtn:hover{
-    background:#28AE4D;
-}
-
-#deleteBtn{
-    background:#EF4444;
-    color:white;
-}
-
-#deleteBtn:hover{
-    background:#DC2626;
-}
-
-@media(max-width:700px){
-
-    .header{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:15px;
-    }
-
-    .row{
-        grid-template-columns:1fr;
-        gap:8px;
-    }
-
-    .actions{
-        flex-direction:column;
-    }
-
+  .actions {
+    flex-direction: column;
+  }
 }

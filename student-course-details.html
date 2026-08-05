@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Details | VALMS</title>
+
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <h2>VALMS</h2>
+        <p>Student Portal</p>
+      </div>
+
+      <nav>
+        <a href="dashboard.html">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+
+        <a href="student-courses.html" class="active">
+          <i class="fa-solid fa-book"></i>
+          My Courses
+        </a>
+
+        <a href="student-attendance.html">
+          <i class="fa-solid fa-calendar-check"></i>
+          Attendance
+        </a>
+
+        <a href="student-results.html">
+          <i class="fa-solid fa-chart-column"></i>
+          Results
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-solid fa-user"></i>
+          My Profile
+        </a>
+
+        <a href="#" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h2 id="courseTitle">Loading...</h2>
+
+        <div class="top-icons">
+          <button><i class="fa-solid fa-bell"></i></button>
+          <div class="avatar" id="topAvatar">SB</div>
+        </div>
+      </header>
+
+      <p class="page-subtitle" id="courseCode"></p>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Sessions</h4>
+            <h2 id="sessionCount">0</h2>
+          </div>
+          <i class="fa-solid fa-video"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Materials</h4>
+            <h2 id="materialCount">0</h2>
+          </div>
+          <i class="fa-solid fa-file"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Announcements</h4>
+            <h2 id="announcementCount">0</h2>
+          </div>
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+
+        <div class="card purple">
+          <div>
+            <h4>Status</h4>
+            <h2 id="courseStatus">-</h2>
+          </div>
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Course Information</h3>
+        </div>
+
+        <p><strong>Department:</strong> <span id="department"></span></p>
+        <br>
+        <p><strong>Description</strong></p>
+        <p id="description"></p>
+      </div>
+
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Available Sessions</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="sessionTable"></tbody>
+        </table>
+      </div>
+
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Announcements</h3>
+          <a href="#" id="viewAllAnnouncements" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+            View All
+          </a>
+        </div>
+
+        <div id="announcementList"></div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-course-details.js"></script>
+
+</body>
+</html>

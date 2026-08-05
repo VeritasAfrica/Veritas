@@ -7,7 +7,7 @@ VALMS Student Profile
 const sidebar = document.getElementById("sidebar");
 const menuBtn = document.getElementById("menuBtn");
 const overlay = document.getElementById("overlay");
-const logoutBtn = document.getElementById("logoutBtn");
+
 
 /* -----------------------------
 Mobile Menu
@@ -81,16 +81,6 @@ async function loadProfile() {
         data.cohort || "Not Assigned";
 
 }
-
-/* -----------------------------
-Logout
-------------------------------*/
-
-logoutBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    await client.auth.signOut();
-    window.location.href = "login.html";
-});
 
 /* -----------------------------
 Start

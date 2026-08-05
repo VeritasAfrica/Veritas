@@ -18,7 +18,7 @@ async function loadStudent() {
     const { data: student, error } = await client
         .from("students")
         .select("*")
-        .eq("id", studentId)
+        .eq("student_id", studentId)
         .single();
 
     if (error) {
@@ -78,7 +78,7 @@ Edit Student
 document.getElementById("editBtn").addEventListener("click", () => {
 
     window.location.href =
-        `edit-student.html?id=${studentId}`;
+        `student-details.html?id=${studentId}`;
 
 });
 
@@ -99,7 +99,7 @@ document.getElementById("deleteBtn").addEventListener("click", async () => {
     const { error } = await client
         .from("students")
         .delete()
-        .eq("id", studentId);
+        .eq("student_id", studentId);
 
     if (error) {
         console.error(error);

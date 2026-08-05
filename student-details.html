@@ -1,327 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Details | VALMS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details | VALMS</title>
 
-<link rel="stylesheet" href="css/admin.css">
-<link rel="stylesheet" href="css/student-details.css">
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/student-details.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
 
-<div class="wrapper">
-
-<!-- Sidebar -->
-<aside class="sidebar">
-
-<div class="logo">
-<h1>VALMS</h1>
-<p>Administration Portal</p>
-</div>
+  <div class="wrapper">
 
-<ul class="menu">
+    <div id="sidebarMount"></div>
 
-<li>
-<a href="admin.html">
-<i class="fa-solid fa-chart-line"></i>
-<span>Dashboard</span>
-</a>
-</li>
+    <main class="main">
 
-<li class="active">
-<a href="students.html">
-<i class="fa-solid fa-user-graduate"></i>
-<span>Students</span>
-</a>
-</li>
+      <div id="topbarMount"></div>
 
-<li>
-<a href="lecturers.html">
-<i class="fa-solid fa-chalkboard-user"></i>
-<span>Lecturers</span>
-</a>
-</li>
+      <a href="students.html" class="back-link" style="margin-bottom: 10px; display: inline-flex;">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Students
+      </a>
 
-<li>
-<a href="departments.html">
-<i class="fa-solid fa-building"></i>
-<span>Departments</span>
-</a>
-</li>
+      <!-- Profile -->
+      <section class="student-profile-card">
 
-<li>
-<a href="courses.html">
-<i class="fa-solid fa-book"></i>
-<span>Courses</span>
-</a>
-</li>
+        <div class="student-avatar" id="studentAvatar">--</div>
 
-<li>
-<a href="attendance.html">
-<i class="fa-solid fa-calendar-check"></i>
-<span>Attendance</span>
-</a>
-</li>
+        <div>
+          <h2 id="studentFullName">Loading...</h2>
+          <p id="studentMatric">Pending Assignment</p>
+          <span class="status" id="studentStatus"></span>
+        </div>
 
-<li>
-<a href="results.html">
-<i class="fa-solid fa-square-poll-vertical"></i>
-<span>Results</span>
-</a>
-</li>
+      </section>
 
-<li>
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-<span>Settings</span>
-</a>
-</li>
+      <!-- Personal -->
+      <section class="details-card">
+        <h3>Personal Information</h3>
 
-</ul>
+        <div class="form-grid">
 
-<div class="sidebar-footer">
+          <div>
+            <label>First Name</label>
+            <input type="text" id="first_name">
+          </div>
 
-<div class="profile">
+          <div>
+            <label>Middle Name</label>
+            <input type="text" id="middle_name">
+          </div>
 
-<div class="avatar" id="adminAvatar">
-SB
-</div>
+          <div>
+            <label>Last Name</label>
+            <input type="text" id="last_name">
+          </div>
 
-<div>
+          <div>
+            <label>Email</label>
+            <input type="email" id="email">
+          </div>
 
-<h4 id="adminName">
-Administrator
-</h4>
+          <div>
+            <label>Phone</label>
+            <input type="text" id="phone">
+          </div>
 
-<p>
-System Admin
-</p>
+          <div>
+            <label>Country</label>
+            <input type="text" id="country">
+          </div>
 
-</div>
+        </div>
+      </section>
 
-</div>
+      <!-- Academic -->
+      <section class="details-card">
+        <h3>Academic Information</h3>
 
-<button id="logoutBtn">
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
-</button>
+        <div class="form-grid">
 
-</div>
+          <div>
+            <label>Admission Year</label>
+            <input type="text" id="admission_year">
+          </div>
 
-</aside>
+          <div>
+            <label>Cohort</label>
+            <input type="text" id="cohort">
+          </div>
 
-<!-- Main -->
+          <div>
+            <label>Matric Number</label>
+            <input type="text" id="matric_number" readonly>
+          </div>
 
-<main class="main">
+        </div>
+      </section>
 
-<header class="topbar">
+      <!-- Actions -->
+      <section class="action-buttons">
 
-<div>
+        <button id="saveStudent" class="assign-btn">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Changes
+        </button>
 
-<a href="students.html" class="back-link">
+        <button id="resetPassword" class="view-btn">
+          <i class="fa-solid fa-key"></i>
+          Reset Password
+        </button>
 
-<i class="fa-solid fa-arrow-left"></i>
+        <button id="deleteStudent" class="delete-btn">
+          <i class="fa-solid fa-trash"></i>
+          Delete Student
+        </button>
 
-Back to Students
+      </section>
 
-</a>
+    </main>
 
-<h1 class="page-title">
-Student Details
-</h1>
+  </div>
 
-</div>
+  <script>
+    window.ADMIN_PAGE = {
+      active: "students",
+      title: "Student Details"
+    };
+  </script>
 
-</header>
-
-<!-- Profile -->
-
-<section class="student-profile-card">
-
-<div class="student-avatar" id="studentAvatar">
---
-</div>
-
-<div>
-
-<h2 id="studentFullName">
-Loading...
-</h2>
-
-<p id="studentMatric">
-Pending Assignment
-</p>
-
-<span class="status active" id="studentStatus"> 
-</span>
-
-</div>
-
-</section>
-
-<!-- Personal -->
-
-<section class="details-card">
-
-<h3>Personal Information</h3>
-
-<div class="form-grid">
-
-<div>
-
-<label>First Name</label>
-
-<input
-type="text"
-id="first_name">
-
-</div>
-
-<div>
-
-<label>Middle Name</label>
-
-<input
-type="text"
-id="middle_name">
-
-</div>
-
-<div>
-
-<label>Last Name</label>
-
-<input
-type="text"
-id="last_name">
-
-</div>
-
-<div>
-
-<label>Email</label>
-
-<input
-type="email"
-id="email">
-
-</div>
-
-<div>
-
-<label>Phone</label>
-
-<input
-type="text"
-id="phone">
-
-</div>
-
-<div>
-
-<label>Country</label>
-
-<input
-type="text"
-id="country">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Academic -->
-
-<section class="details-card">
-
-<h3>Academic Information</h3>
-
-<div class="form-grid">
-
-<div>
-
-<label>Admission Year</label>
-
-<input
-type="text"
-id="admission_year">
-
-</div>
-
-<div>
-
-<label>Cohort</label>
-
-<input
-type="text"
-id="cohort">
-
-</div>
-
-<div>
-
-<label>Matric Number</label>
-
-<input
-type="text"
-id="matric_number"
-readonly>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Actions -->
-
-<section class="action-buttons">
-
-<button id="saveStudent" class="assign-btn">
-
-<i class="fa-solid fa-floppy-disk"></i>
-
-Save Changes
-
-</button>
-
-<button id="resetPassword" class="view-btn">
-
-<i class="fa-solid fa-key"></i>
-
-Reset Password
-
-</button>
-
-<button id="deleteStudent" class="delete-btn">
-
-<i class="fa-solid fa-trash"></i>
-
-Delete Student
-
-</button>
-
-</section>
-
-</main>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="js/config.js"></script>
-
-<script src="js/student-details.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/student-details.js"></script>
 
 </body>
 </html>

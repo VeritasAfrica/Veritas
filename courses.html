@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VALMS | Courses</title>
+
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/courses.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Total Courses</h4>
+            <h2 id="totalCourses">0</h2>
+            <p>All Courses</p>
+          </div>
+          <i class="fa-solid fa-book"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Published</h4>
+            <h2 id="publishedCourses">0</h2>
+            <p>Available</p>
+          </div>
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Draft</h4>
+            <h2 id="draftCourses">0</h2>
+            <p>Not Visible</p>
+          </div>
+          <i class="fa-solid fa-pen"></i>
+        </div>
+
+        <div class="card purple">
+          <div>
+            <h4>Archived</h4>
+            <h2 id="archivedCourses">0</h2>
+            <p>Old Courses</p>
+          </div>
+          <i class="fa-solid fa-box-archive"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+
+        <div class="card-title">
+          <h3>Courses</h3>
+          <button id="createCourseBtn" class="assign-btn">
+            <i class="fa-solid fa-plus"></i>
+            Create Course
+          </button>
+        </div>
+
+        <div class="search" style="margin-bottom: 25px; max-width: 420px;">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" id="searchCourse" placeholder="Search course...">
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="courseTable"></tbody>
+        </table>
+
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+      window.ADMIN_PAGE = {
+        active: "courses",        // ← change this per page, see table below
+        title: "Courses",         // ← the page heading
+      };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/courses.js"></script>
+
+</body>
+</html>

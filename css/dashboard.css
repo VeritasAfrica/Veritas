@@ -36,72 +36,6 @@ Wrapper
     min-height:100vh;
 }
 
-/* ==========================
-Sidebar
-========================== */
-.sidebar{
-    width:260px;
-    background:var(--white);
-    box-shadow:var(--shadow);
-    position:fixed;
-    top:0;
-    left:0;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    z-index:1000;
-    transition:var(--transition);
-}
-
-.logo{
-    padding:35px 30px;
-    border-bottom:1px solid var(--border);
-}
-
-.logo h2{
-    color:var(--primary);
-    font-size:24px;
-}
-
-.logo p{
-    color:var(--muted);
-    margin-top:5px;
-    font-size:14px;
-}
-
-.sidebar nav{
-    display:flex;
-    flex-direction:column;
-    padding:20px;
-    flex:1;
-}
-
-.sidebar nav a{
-    text-decoration:none;
-    color:var(--text);
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:15px 18px;
-    border-radius:14px;
-    margin-bottom:12px;
-    transition:var(--transition);
-    font-weight:500;
-}
-
-.sidebar nav a:hover{
-    background:var(--secondary);
-}
-
-.sidebar nav a.active{
-    background:var(--primary);
-    color:white;
-}
-
-.sidebar nav .logoutBtn{
-    margin-top:auto;
-    color:var(--danger);
-}
 
 /* ==========================
 Main
@@ -112,87 +46,6 @@ Main
     padding:35px;
 }
 
-/* ==========================
-Top Bar
-========================== */
-
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:35px;
-}
-
-.topbar h2{
-    font-size:24px;
-}
-
-.menu-btn{
-    display:none;
-    border:none;
-    background:none;
-    font-size:24px;
-    cursor:pointer;
-}
-
-/* ==========================
-Avatar
-========================== */
-.top-icons{
-    position:relative;
-}
-
-.avatar{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:var(--primary);
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    font-weight:600;
-    font-size:18px;
-    transition:var(--transition);
-}
-
-.avatar:hover{
-    background:var(--primary-dark);
-}
-
-/* ==========================
-Profile Menu
-========================== */
-.profile-menu{
-    position:absolute;
-    right:0;
-    top:65px;
-    width:220px;
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    display:none;
-}
-
-.profile-menu.show{
-    display:block;
-}
-
-.profile-menu a{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:15px 18px;
-    text-decoration:none;
-    color:var(--text);
-    transition:var(--transition);
-}
-
-.profile-menu a:hover{
-    background:var(--secondary);
-}
 
 /* ==========================
 Welcome
@@ -259,13 +112,6 @@ Panels
     line-height:1.6;
 }
 
-/* ==========================
-Overlay
-========================== */
-
-.overlay{
-    display:none;
-}
 
 /* ==========================
 Responsive

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Course | VALMS</title>
+  <link rel="stylesheet" href="css/admin-shell.css">
+
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-course.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card">
+        <form id="courseForm">
+
+          <div class="form-group">
+            <label>Course Code</label>
+            <input type="text" id="courseCode" required>
+          </div>
+
+          <div class="form-group">
+            <label>Course Title</label>
+            <input type="text" id="courseTitle" required>
+          </div>
+
+          <div class="form-group">
+            <label>Department</label>
+            <input type="text" id="department">
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" rows="5"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Status</label>
+            <select id="status">
+              <option value="Draft">Draft</option>
+              <option value="Published">Published</option>
+              <option value="Archived">Archived</option>
+            </select>
+          </div>
+
+          <div id="message" style="margin: 20px 0; font-weight: 600;"></div>
+
+          <div style="display: flex; gap: 15px;">
+
+            <button type="submit" class="assign-btn" id="saveCourse">
+              Save Course
+            </button>
+
+            <a href="courses.html" class="view-btn"
+               style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+              Cancel
+            </a>
+
+          </div>
+
+        </form>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+  window.ADMIN_PAGE = {
+    active: "courses",       // ← this page's key, see table below
+    title: "Create Course",        // ← the page heading
+  };
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/create-course.js"></script>
+
+</body>
+</html>

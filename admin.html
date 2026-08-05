@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VALMS Admin</title>
-
+  <link rel="stylesheet" href="css/admin-shell.css">
   <link rel="stylesheet" href="css/admin.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,133 +21,13 @@
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <aside class="sidebar">
-
-      <div class="logo">
-        <h1>VALMS</h1>
-        <p>Administration Portal</p>
-      </div>
-
-      <ul class="menu">
-        <li class="active">
-          <a href="admin.html">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="students.html">
-            <i class="fa-solid fa-user-graduate"></i>
-            <span>Students</span>
-          </a>
-        </li>
-
-        <!--
-        <li>
-          <a href="lecturers.html">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <span>Lecturers</span>
-          </a>
-        </li>
-        -->
-
-        <!--
-        <li>
-          <a href="departments.html">
-            <i class="fa-solid fa-building"></i>
-            <span>Departments</span>
-          </a>
-        </li>
-        -->
-
-        <li>
-          <a href="courses.html">
-            <i class="fa-solid fa-book"></i>
-            <span>Courses</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="allocation.html">
-            <i class="fa-solid fa-diagram-project"></i>
-            <span>Course Allocation</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="attendance.html">
-            <i class="fa-solid fa-calendar-check"></i>
-            <span>Attendance</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="results.html">
-            <i class="fa-solid fa-square-poll-vertical"></i>
-            <span>Results</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="announcements.html">
-            <i class="fa-solid fa-bullhorn"></i>
-            <span>Announcements</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="settings.html">
-            <i class="fa-solid fa-gear"></i>
-            <span>Settings</span>
-          </a>
-        </li>
-      </ul>
-
-      <div class="sidebar-footer">
-        <div class="profile">
-          <div class="avatar">SB</div>
-          <div>
-            <h4>Samuel</h4>
-            <p>Administrator</p>
-          </div>
-        </div>
-
-        <button id="logoutBtn">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          Logout
-        </button>
-      </div>
-
-    </aside>
+    <div id="sidebarMount"></div>
 
     <!-- Main -->
     <main class="main">
 
       <!-- Top -->
-      <header class="topbar">
-
-        <div class="top-row">
-          <div class="left-side">
-            <button id="menuBtn" class="menu-btn">
-              <i class="fa-solid fa-bars"></i>
-            </button>
-            <h2 class="page-title">Dashboard</h2>
-          </div>
-
-          <div class="right-side">
-            <button><i class="fa-regular fa-envelope"></i></button>
-            <button><i class="fa-regular fa-bell"></i></button>
-            <div class="admin-avatar">SB</div>
-          </div>
-        </div>
-
-        <div class="search">
-          <i class="fa-solid fa-search"></i>
-          <input type="text" placeholder="Search students, lecturers, courses...">
-        </div>
-
-      </header>
+      <div id="topbarMount"></div>
 
       <!-- Cards -->
       <section class="stats">
@@ -310,10 +190,17 @@
     </main>
 
   </div>
+  <script>
+  window.ADMIN_PAGE = {
+    active: "dashboard",       // ← this page's key, see table below
+    title: "Dashboard",        // ← the page heading
+  };
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
   <script src="js/admin.js"></script>
 
 </body>

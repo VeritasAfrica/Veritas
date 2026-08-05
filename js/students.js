@@ -9,6 +9,7 @@ async function loadStudents() {
   const { data: students, error } = await client
     .from("students")
     .select("*")
+    .eq("role", "student")
     .order("last_name", { ascending: true })
     .order("first_name", { ascending: true });
 
@@ -57,11 +58,9 @@ async function loadStudents() {
           }
         </td>
         <td>
-            <button
-                class="view-btn"
-                onclick="window.location.href='student-details.html?id=${student.student_id}'">
-                View
-            </button>
+          <button class="action-btn" onclick="viewStudent('${student.student_id}')">
+            View
+          </button>
         </td>
       </tr>`;
   });
@@ -111,7 +110,7 @@ document.getElementById("generateMatric").addEventListener("click", async () => 
 
   if (!confirm("Generate matric numbers for all students without one?")) return;
 
-  const year = new Date().getFullYear().toString();
+  const year = new Date().getFullYear().toString().slice(-2);
 
   const { error } = await client.rpc("generate_matric_numbers", {
     p_year: year,

@@ -1,127 +1,11 @@
 /*
 =========================================
 VALMS STUDENTS
+(sidebar, topbar, and overlay now live in
+admin-shell.css — this file only holds
+page-specific content styles)
 =========================================
 */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #F4F7FC;
-  color: #1E293B;
-}
-
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* =====================
-SIDEBAR
-===================== */
-
-.sidebar {
-  width: 270px;
-  background: #fff;
-  border-right: 1px solid #E5E7EB;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  transition: .3s;
-}
-
-.logo {
-  padding: 35px 30px;
-}
-
-.logo h1 {
-  font-size: 32px;
-  color: #34C759;
-  white-space: nowrap;
-}
-
-.logo p {
-  color: #94A3B8;
-  margin-top: 6px;
-}
-
-.menu {
-  list-style: none;
-  padding: 10px 18px;
-}
-
-.menu li {
-  margin-bottom: 8px;
-}
-
-.menu a {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 16px 18px;
-  border-radius: 14px;
-  text-decoration: none;
-  color: #475569;
-  font-weight: 500;
-  transition: .3s;
-}
-
-.menu a:hover,
-.menu .active a {
-  background: #34C759;
-  color: white;
-}
-
-.main {
-  margin-left: 270px;
-  padding: 35px;
-  width: 100%;
-}
-
-/* =====================
-HEADER
-===================== */
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.page-header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.menu-btn {
-  display: none;
-  width: 44px;
-  height: 44px;
-  border: none;
-  border-radius: 12px;
-  background: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.05);
-}
-
-.page-header h1 {
-  font-size: 34px;
-  margin-bottom: 8px;
-}
-
-.page-header p {
-  color: #64748B;
-}
 
 #generateMatric {
   background: #34C759;
@@ -205,6 +89,7 @@ TABLE
   border-radius: 20px;
   box-shadow: 0 12px 30px rgba(0,0,0,.05);
   overflow: hidden;
+  padding: 28px;
 }
 
 table {
@@ -270,22 +155,6 @@ tbody tr:hover {
   background: #28AE4D;
 }
 
-.view-btn{
-    padding:10px 18px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    color:#34C759;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.view-btn:hover{
-    background:#28AE4D;
-    color:white;
-}
-
 /* =====================
 RESPONSIVE
 ===================== */
@@ -297,41 +166,12 @@ RESPONSIVE
 }
 
 @media (max-width: 900px) {
-  .sidebar {
-    width: 90px;
-  }
-
-  .logo {
-    display: flex;
-    justify-content: center;
-    padding: 30px 0;
-  }
-
-  .logo p,
-  .menu span {
-    display: none;
-  }
-
-  .logo h1 {
-    font-size: 22px;
-  }
-
-  .main {
-    margin-left: 90px;
-  }
-
   .filters {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 700px) {
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
   .cards {
     grid-template-columns: 1fr;
   }
@@ -342,11 +182,5 @@ RESPONSIVE
 
   table {
     min-width: 900px;
-  }
-}
-
-@media (max-width: 500px) {
-  .main {
-    padding: 20px;
   }
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Courses | VALMS</title>
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebarMount"></div>
+
+    <!-- Main -->
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <p class="page-subtitle">Courses available this semester</p>
+
+      <div class="search-bar">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="searchCourse" placeholder="Search course...">
+      </div>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Registered Courses</h4>
+            <h2 id="courseCount">0</h2>
+          </div>
+          <i class="fa-solid fa-book"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Released Sessions</h4>
+            <h2 id="sessionCount">0</h2>
+          </div>
+          <i class="fa-solid fa-video"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Materials</h4>
+            <h2 id="materialCount">0</h2>
+          </div>
+          <i class="fa-solid fa-file"></i>
+        </div>
+
+        <div class="card purple">
+          <div>
+            <h4>Announcements</h4>
+            <h2 id="announcementCount">0</h2>
+          </div>
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Course List</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Course</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="courseTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+    window.STUDENT_PAGE = {
+        active: "courses",       // ← this page's key, see table below
+        title: "My ",        // ← the page heading
+    };
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/student-courses.js"></script>
+
+</body>
+</html>

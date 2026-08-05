@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VALMS | My Profile</title>
+    <link rel="stylesheet" href="css/student-shell.css">
     <link rel="stylesheet" href="css/profile.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet"
@@ -16,55 +17,12 @@
 <div class="overlay" id="overlay"></div>
 <div class="wrapper">
     <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="logo">
-            <h2>VALMS</h2>
-            <p>Student Portal</p>
-        </div>
-
-        <nav>
-            <a href="dashboard.html">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
-
-            <a href="profile.html" class="active">
-                <i class="fa-solid fa-user"></i>
-                My Profile
-            </a>
-
-            <a href="courses.html">
-                <i class="fa-solid fa-book"></i>
-                My Courses
-            </a>
-
-            <a href="#" id="logoutBtn">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </a>
-        </nav>
-    </aside>
+    <div id="sidebarMount"></div>
 
     <!-- Main -->
     <main class="main">
         <!-- Topbar -->
-        <header class="topbar">
-            <button class="menu-btn" id="menuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <h2>My Profile</h2>
-
-            <div class="top-icons">
-                <button>
-                    <i class="fa-solid fa-bell"></i>
-                </button>
-
-                <div class="avatar" id="topAvatar">
-                    SB
-                </div>
-            </div>
-        </header>
+        <div id="topbarMount"></div>
 
         <!-- Profile Card -->
         <section class="profile-card">
@@ -117,12 +75,19 @@
     </main>
 
 </div>
+<script>
+    window.STUDENT_PAGE = {
+        active: "profile",       // ← this page's key, see table below
+        title: "My Profile",        // ← the page heading
+    };
+    </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/config.js"></script>
 
 <script src="js/auth.js"></script>
+<script src="js/student-shell.js"></script>
 
 <script src="js/profile.js"></script>
 

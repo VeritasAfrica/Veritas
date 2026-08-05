@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Schedule | VALMS</title>
+  <link rel="stylesheet" href="css/student-shell.css">
+
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebarMount"></div>
+
+    <!-- Main -->
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <p class="page-subtitle">Upcoming classes</p>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Course</th>
+              <th>Session</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+    window.STUDENT_PAGE = {
+        active: "schedule",       // ← this page's key, see table below
+        title: "My Schedule",        // ← the page heading
+    };
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/student-schedule.js"></script>
+
+</body>
+</html>

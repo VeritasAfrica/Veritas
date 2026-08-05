@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Material | VALMS</title>
+  <link rel="stylesheet" href="css/admin-shell.css">
+
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/upload-material.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card">
+        <form id="materialForm">
+
+          <div class="form-group">
+            <label>Material Title</label>
+            <input type="text" id="title" required>
+          </div>
+
+          <div class="form-group">
+            <label>Material Type</label>
+            <select id="type">
+              <option value="Video">Video</option>
+              <option value="PDF">PDF</option>
+              <option value="Document">Document</option>
+              <option value="Slide">Slide</option>
+              <option value="Link">External Link</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="fileGroup">
+            <label>Upload File</label>
+            <input type="file" id="file">
+          </div>
+
+          <div class="form-group" id="linkGroup" style="display: none;">
+            <label>External Link</label>
+            <input type="url" id="link" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label>Description <span class="optional">(optional)</span></label>
+            <textarea id="description" rows="4"></textarea>
+          </div>
+
+          <div id="message" style="margin: 20px 0; font-weight: 600;"></div>
+
+          <button type="submit" id="uploadBtn" class="assign-btn">
+            Upload Material
+          </button>
+
+        </form>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+  window.ADMIN_PAGE = {
+    active: "courses",       // ← this page's key, see table below
+    title: "Upload Materials",        // ← the page heading
+  };
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/upload-material.js"></script>
+
+</body>
+</html>

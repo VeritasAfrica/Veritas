@@ -1,0 +1,107 @@
+<!-- create-session.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Session | VALMS</title>
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-session.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card">
+        <form id="sessionForm">
+
+          <div class="form-group">
+            <label>Week Number</label>
+            <input type="number" id="week" min="1" required>
+          </div>
+
+          <div class="form-group">
+            <label>Session Title</label>
+            <input type="text" id="title" required>
+          </div>
+
+          <div class="form-group">
+            <label>Session Type</label>
+            <select id="type">
+              <option value="Live">Live</option>
+              <option value="Recorded">Recorded</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Session Date</label>
+              <input type="date" id="scheduledDate" required>
+            </div>
+
+            <div class="form-group">
+              <label>Start Time</label>
+              <input type="time" id="startTime" required>
+            </div>
+
+            <div class="form-group">
+              <label>End Time</label>
+              <input type="time" id="endTime">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Meeting Link <span class="optional">(for Live sessions)</span></label>
+            <input type="url" id="meetingUrl" placeholder="https://meet.google.com/...">
+          </div>
+
+          <div class="form-group">
+            <label>Video Link <span class="optional">(for Recorded sessions)</span></label>
+            <input type="url" id="videoUrl" placeholder="https://youtube.com/...">
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" rows="5"></textarea>
+          </div>
+
+          <div id="message" style="margin: 20px 0; font-weight: 600;"></div>
+
+          <button type="submit" id="saveSession" class="assign-btn">
+            Save Session
+          </button>
+
+        </form>
+      </div>
+
+    </main>
+
+  </div>
+  <script>
+  window.ADMIN_PAGE = {
+    active: "courses",       // ← this page's key, see table below
+    title: "Create Session",        // ← the page heading
+  };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/create-session.js"></script>
+
+</body>
+</html>

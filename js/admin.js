@@ -5,19 +5,6 @@ VALMS ADMIN DASHBOARD
 */
 
 /* ==========================
-Logout
-========================== */
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    await client.auth.signOut();
-    window.location.href = "login.html";
-  });
-}
-
-/* ==========================
 Assign Matric
 ========================== */
 
@@ -35,7 +22,7 @@ Generate Matric Numbers
 ========================== */
 
 async function generateMatricNumbers() {
-  const year = new Date().getFullYear().toString();
+  const year = new Date().getFullYear().toString().slice(-2);
 
   const { error } = await client.rpc("generate_matric_numbers", {
     p_year: year,
