@@ -4,57 +4,6 @@ VALMS STUDENT SCHEDULE
 =========================================
 */
 
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-const logoutBtn = document.getElementById("logoutBtn");
-
-/* ==========================
-Mobile Menu
-========================== */
-
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.add("show");
-  overlay.classList.add("show");
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("show");
-  overlay.classList.remove("show");
-});
-
-/* ==========================
-Logout
-========================== */
-
-logoutBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await client.auth.signOut();
-  window.location.href = "login.html";
-});
-
-/* ==========================
-Load Avatar
-========================== */
-
-async function loadAvatar() {
-
-  const { data: { user } } = await client.auth.getUser();
-  if (!user) return;
-
-  const { data } = await client
-    .from("students")
-    .select("first_name, last_name")
-    .eq("auth_user_id", user.id)
-    .single();
-
-  if (data) {
-    const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-    document.getElementById("topAvatar").textContent = initials;
-  }
-
-}
-
 /* ==========================
 Load Schedule
 ========================== */
@@ -123,5 +72,4 @@ async function loadSchedule() {
 Start
 ========================== */
 
-loadAvatar();
 loadSchedule();

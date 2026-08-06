@@ -12,35 +12,6 @@ if (!sessionId) {
   window.location.href = "student-courses.html";
 }
 
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-const logoutBtn = document.getElementById("logoutBtn");
-
-/* ==========================
-Mobile Menu
-========================== */
-
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.add("show");
-  overlay.classList.add("show");
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("show");
-  overlay.classList.remove("show");
-});
-
-/* ==========================
-Logout
-========================== */
-
-logoutBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await client.auth.signOut();
-  window.location.href = "login.html";
-});
-
 /* ==========================
 Load Avatar
 ========================== */
