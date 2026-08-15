@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS ADMIN DASHBOARD
+Purpose Institute ADMIN DASHBOARD
 =========================================
 */
 

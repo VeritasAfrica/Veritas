@@ -1,9 +1,6 @@
 /*
 =========================================
-VALMS STUDENTS
-(sidebar, topbar, and overlay now live in
-admin-shell.css — this file only holds
-page-specific content styles)
+Purpose Institute STUDENTS
 =========================================
 */
 
@@ -25,6 +22,26 @@ page-specific content styles)
 
 #generateMatric:hover {
   background: #28AE4D;
+}
+
+#assignGroups {
+  background: #3B82F6;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: .3s;
+}
+
+#assignGroups:hover {
+  background: #2563EB;
 }
 
 /* =====================

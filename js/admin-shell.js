@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS ADMIN SHELL
+Purpose Institute ADMIN SHELL
 Injects the sidebar + topbar on every admin
 page, wires up mobile menu, logout, and
 loads the admin's name/avatar.
@@ -11,7 +11,7 @@ BEFORE this script loads, e.g.:
   window.ADMIN_PAGE = {
     active: "courses",
     title: "Courses",
-    subtitle: "Manage all VALMS courses",
+    subtitle: "Manage all Purpose Institute courses",
     search: { id: "pageSearch", placeholder: "Search course..." }
     // omit "search" if the page doesn't need one
   };
@@ -31,6 +31,7 @@ BEFORE this script loads, e.g.:
   const navItems = [
     { key: "dashboard",   label: "Dashboard",   icon: "fa-chart-line",           href: "admin.html" },
     { key: "students",    label: "Students",    icon: "fa-user-graduate",        href: "students.html" },
+    { key: "groups",      label: "Groups",       icon: "fa-users",                href: "groups.html" },
     { key: "courses",     label: "Courses",     icon: "fa-book",                 href: "courses.html" },
     { key: "attendance",  label: "Attendance",  icon: "fa-calendar-check",       href: "attendance.html" },
     { key: "results",     label: "Results",     icon: "fa-square-poll-vertical", href: "results.html" },
@@ -58,7 +59,7 @@ BEFORE this script loads, e.g.:
       <aside class="sidebar" id="sidebar">
 
         <div class="logo">
-          <h1>VALMS</h1>
+          <h1>Purpose Institute</h1>
           <p>Administration Portal</p>
         </div>
 
@@ -187,7 +188,7 @@ BEFORE this script loads, e.g.:
 
     if (data) {
       const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-      document.getElementById("adminName").textContent = data.last_name;
+      document.getElementById("adminName").textContent = data.full_name;
       document.getElementById("adminAvatar").textContent = initials;
       document.getElementById("topAvatar").textContent = initials;
     }

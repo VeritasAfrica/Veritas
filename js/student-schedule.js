@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT SCHEDULE
+Purpose Institute STUDENT SCHEDULE
 =========================================
 */
 

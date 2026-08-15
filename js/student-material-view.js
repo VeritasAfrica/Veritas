@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT MATERIAL VIEW
+Purpose Institute STUDENT MATERIAL VIEW
 =========================================
 */
 
@@ -11,6 +11,35 @@ if (!sessionId) {
   alert("Session not found.");
   window.location.href = "student-courses.html";
 }
+
+const sidebar = document.getElementById("sidebar");
+const menuBtn = document.getElementById("menuBtn");
+const overlay = document.getElementById("overlay");
+const logoutBtn = document.getElementById("logoutBtn");
+
+/* ==========================
+Mobile Menu
+========================== */
+
+menuBtn.addEventListener("click", () => {
+  sidebar.classList.add("show");
+  overlay.classList.add("show");
+});
+
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("show");
+  overlay.classList.remove("show");
+});
+
+/* ==========================
+Logout
+========================== */
+
+logoutBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await client.auth.signOut();
+  window.location.href = "login.html";
+});
 
 /* ==========================
 Load Avatar
@@ -168,9 +197,68 @@ async function loadMaterials() {
 }
 
 /* ==========================
+Load Quiz (if one exists for this session)
+========================== */
+
+async function loadQuizAction() {
+
+  const { data: quiz } = await client
+    .from("quizzes")
+    .select("*")
+    .eq("session_id", sessionId)
+    .eq("status", "Published")
+    .maybeSingle();
+
+  const box = document.getElementById("quizAction");
+
+  if (!quiz) {
+    box.innerHTML = "";
+    return;
+  }
+
+  const { data: { user } } = await client.auth.getUser();
+  const { data: student } = await client
+    .from("students")
+    .select("student_id")
+    .eq("auth_user_id", user.id)
+    .single();
+
+  const { data: submission } = await client
+    .from("quiz_submissions")
+    .select("score")
+    .eq("quiz_id", quiz.quiz_id)
+    .eq("student_id", student.student_id)
+    .maybeSingle();
+
+  box.innerHTML = submission
+    ? `
+      <div class="table-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div>
+          <strong>${quiz.title}</strong>
+          <p style="color:#6B7280; margin-top:4px;">You scored ${submission.score} points</p>
+        </div>
+        <span class="status active">Completed</span>
+      </div>
+    `
+    : `
+      <div class="table-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div>
+          <strong>${quiz.title}</strong>
+          <p style="color:#6B7280; margin-top:4px;">${quiz.description || "Test your understanding of this session."}</p>
+        </div>
+        <a href="take-quiz.html?quiz=${quiz.quiz_id}" class="view-btn" style="text-decoration:none;">
+          <i class="fa-solid fa-pen"></i> Take Quiz
+        </a>
+      </div>
+    `;
+
+}
+
+/* ==========================
 Start
 ========================== */
 
 loadAvatar();
 loadSession();
 loadMaterials();
+loadQuizAction();

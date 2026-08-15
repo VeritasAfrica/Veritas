@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Session Details | VALMS</title>
+  <title>Session Details | Purpose Institute</title>
   <link rel="stylesheet" href="css/admin-shell.css">
 
   <link rel="stylesheet" href="css/admin.css">
@@ -76,6 +76,52 @@
           <h3>Description</h3>
         </div>
         <p id="description"></p>
+      </div>
+
+      <!-- Class Status + Attendance -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Class Status</h3>
+          <div style="display: flex; gap: 12px;">
+            <button id="startClassBtn" class="assign-btn">
+              <i class="fa-solid fa-play"></i>
+              Start Class
+            </button>
+            <button id="endClassBtn" class="delete-btn" style="display: none;">
+              <i class="fa-solid fa-stop"></i>
+              End Class
+            </button>
+          </div>
+        </div>
+
+        <div id="classStatusBox" style="margin-bottom: 20px;"></div>
+        <div id="attendanceCodeBox"></div>
+      </div>
+
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Attendance Records</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Matric Number</th>
+              <th>Marked At</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Quiz -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Quiz</h3>
+        </div>
+
+        <div id="quizBox"></div>
       </div>
 
       <div class="table-card" style="margin-top: 30px;">

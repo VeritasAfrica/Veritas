@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS CREATE SESSION
+Purpose Institute CREATE SESSION
 =========================================
 */
 

@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS Students
+Purpose Institute Students
 =========================================
 */
 
@@ -124,6 +124,34 @@ document.getElementById("generateMatric").addEventListener("click", async () => 
   }
 
   alert("Matric numbers generated successfully.");
+  loadStudents();
+
+});
+
+/*
+=========================================
+Assign Groups
+=========================================
+*/
+
+document.getElementById("assignGroups").addEventListener("click", async () => {
+
+  if (!confirm("Assign groups of 20 for all students without one?")) return;
+
+  const year = new Date().getFullYear().toString().slice(-2);
+
+  const { error } = await client.rpc("assign_student_groups", {
+    p_year: year,
+    p_cohort: "01"
+  });
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+
+  alert("Groups assigned successfully. Set WhatsApp links from the Groups page.");
   loadStudents();
 
 });

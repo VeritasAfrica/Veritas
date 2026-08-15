@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS CREATE / EDIT COURSE
+Purpose Institute CREATE / EDIT COURSE
 =========================================
 */
 

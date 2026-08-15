@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT SHELL
+Purpose Institute STUDENT SHELL
 Injects the sidebar + topbar on every
 student-facing page, wires up mobile menu,
 logout, and loads the student's avatar.
@@ -56,7 +56,7 @@ BEFORE this script loads, e.g.:
 
       <aside class="sidebar" id="sidebar">
         <div class="logo">
-          <h2>VALMS</h2>
+          <h2>Purpose Institute</h2>
           <p>Student Portal</p>
         </div>
 
@@ -87,7 +87,10 @@ BEFORE this script loads, e.g.:
         <h2>${config.title || ""}</h2>
 
         <div class="top-icons">
-          <button><i class="fa-solid fa-bell"></i></button>
+          <a href="student-announcements.html" id="notifBtn" class="notif-btn">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notif-dot" id="notifDot" style="display:none;"></span>
+          </a>
           <div class="avatar" id="topAvatar">SB</div>
         </div>
       </header>
@@ -129,6 +132,33 @@ BEFORE this script loads, e.g.:
       window.location.href = "login.html";
     });
   }
+
+  /* ==========================
+  Notification Dot
+  ========================== */
+
+  async function loadTodaysAnnouncements() {
+
+    const { data, error } = await client
+      .from("course_announcements")
+      .select("created_at, courses(status)")
+      .order("created_at", { ascending: false });
+
+    const dot = document.getElementById("notifDot");
+    if (!dot || error || !data) return;
+
+    const today = new Date().toDateString();
+
+    const hasTodays = data.some(a =>
+      a.courses?.status === "Published" &&
+      new Date(a.created_at).toDateString() === today
+    );
+
+    if (hasTodays) dot.style.display = "block";
+
+  }
+
+  loadTodaysAnnouncements();
 
   /* ==========================
   Load Student Avatar

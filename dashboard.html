@@ -1,133 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PI | Student Dashboard</title>
 
-    <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>VALMS | Student Dashboard</title>
-    <link rel="stylesheet" href="css/student-shell.css">
-
-    <link rel="stylesheet" href="css/dashboard.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Mobile Overlay -->
+  <div class="wrapper">
 
-    <div class="overlay" id="overlay"></div>
-    <div class="wrapper">
-        <!-- ==========================
-             Sidebar
-        =========================== -->
-        <div id="sidebarMount"></div>
+    <div id="sidebarMount"></div>
 
-        <!-- ==========================
-             Main Content
-        =========================== -->
-        <main class="main">
-            <!-- Top Navigation -->
-            <div id="topbarMount"></div>
+    <main class="main">
 
-            <!-- Welcome -->
-            <section class="welcome">
-                <h1>
-                    <span id="welcomeMessage">
-                        Good Morning,
-                    </span>
+      <div id="topbarMount"></div>
 
-                    <span id="studentName">
-                        Student
-                    </span>
-                    👋
-                </h1>
+      <!-- Welcome -->
+      <section class="welcome">
+        <h1>
+          <span id="welcomeMessage">Good Morning,</span>
+          <span id="studentName">Student</span> 👋
+        </h1>
+        <p>Welcome back to Purpose Institute.</p>
+      </section>
 
-                <p>
-                    Welcome back to VALMS.
-                </p>
+      <!-- Matric Number -->
+      <section class="matric-card">
+        <h3>
+          <i class="fa-solid fa-graduation-cap"></i>
+          Matric Number
+        </h3>
+        <h1 id="matric">Pending Assignment</h1>
+      </section>
 
-            </section>
+      <!-- My Group -->
+      <section class="panel" id="groupPanel" style="display: none;">
+        <h2>👥 My Group</h2>
+        <div id="groupContent"></div>
+      </section>
 
-            <!-- Matric Number -->
-            <section class="matric-card">
-                <h3>
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    Matric Number
-                </h3>
+      <!-- Today's Schedule -->
+      <section class="panel">
+        <h2>📅 Today's Schedule</h2>
+        <div id="scheduleList">
+          <p>No classes scheduled today.</p>
+        </div>
+      </section>
 
-                <h1 id="matric">
-                    Pending Assignment
-                </h1>
+      <!-- Announcements -->
+      <section class="panel">
+        <h2>📢 Today's Announcements</h2>
+        <div id="announcementsList">
+          <p>No announcements at the moment.</p>
+        </div>
+      </section>
 
-            </section>
+    </main>
 
-            <!-- Today's Schedule -->
-            <section class="panel">
-                <h2>
-                    📅 Today's Schedule
-                </h2>
+  </div>
 
-                <p>
-                    No classes scheduled today.
-                </p>
-
-            </section>
-
-            <!-- Announcements -->
-            <section class="panel">
-                <h2>
-                    📢 Announcements
-                </h2>
-
-                <p>
-                    No announcements at the moment.
-                </p>
-
-            </section>
-
-            <!-- Notifications -->
-            <section class="panel">
-                <h2>
-                    🔔 Notifications
-                </h2>
-
-                <p>
-                    You're all caught up.
-                </p>
-
-            </section>
-
-        </main>
-
-    </div>
-
-    <!-- Scripts -->
-    <script>
+  <script>
     window.STUDENT_PAGE = {
-        active: "dashboard",       // ← this page's key, see table below
-        title: "Dashboard",        // ← the page heading
+      active: "dashboard",
+      title: "Dashboard"
     };
-    </script>
+  </script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script src="js/config.js"></script>
-
-    <script src="js/auth.js"></script>
-    <script src="js/student-shell.js"></script>
-
-    <script src="js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/dashboard.js"></script>
 
 </body>
-
 </html>

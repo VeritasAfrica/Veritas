@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS Email Verification
+Purpose Institute Email Verification
 =========================================
 */
 

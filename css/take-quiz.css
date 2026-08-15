@@ -1,0 +1,64 @@
+/*
+=========================================
+Purpose Institute TAKE QUIZ
+=========================================
+*/
+
+.question-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.question-text {
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.option-label:hover {
+  background: var(--secondary);
+  border-color: var(--primary);
+}
+
+.option-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.mark-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.mark-btn:hover {
+  background: var(--primary-dark);
+}
+
+.mark-btn:disabled {
+  background: #94A3B8;
+  cursor: not-allowed;
+}

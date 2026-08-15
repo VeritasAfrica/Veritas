@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS Registration
+Purpose Institute Registration
 =========================================
 */
 

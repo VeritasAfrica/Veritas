@@ -1,6 +1,6 @@
 /*
 ==========================================
-VALMS Student Profile
+Purpose Institute Student Profile
 ==========================================
 */
 

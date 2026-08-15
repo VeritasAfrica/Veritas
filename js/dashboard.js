@@ -1,155 +1,163 @@
 /*
 ==========================================
-VALMS Student Dashboard
+Purpose Institute Student Dashboard
 ==========================================
 */
 
 /* -----------------------------
-Elements
-------------------------------*/
-
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-const avatarBtn = document.getElementById("avatarBtn");
-const profileMenu = document.getElementById("profileMenu");
-
-/* -----------------------------
 Greeting
 ------------------------------*/
+
 function getGreeting() {
-    const hour = new Date().getHours();
-    if (hour < 12) {
-        return "Good Morning,";
-    }
-
-    if (hour < 17) {
-        return "Good Afternoon,";
-    }
-
-    return "Good Evening,";
-}
-
-/* -----------------------------
-Mobile Sidebar
-------------------------------*/
-
-if (menuBtn && sidebar && overlay) {
-
-    menuBtn.addEventListener("click", () => {
-        sidebar.classList.add("show");
-        overlay.classList.add("show");
-    });
-
-    overlay.addEventListener("click", () => {
-        sidebar.classList.remove("show");
-        overlay.classList.remove("show");
-    });
-
-}
-
-/* -----------------------------
-Avatar Dropdown
-------------------------------*/
-if (avatarBtn && profileMenu) {
-
-    avatarBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        profileMenu.classList.toggle("show");
-    });
-
-    document.addEventListener("click", () => {
-        profileMenu.classList.remove("show");
-    });
-
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good Morning,";
+  if (hour < 17) return "Good Afternoon,";
+  return "Good Evening,";
 }
 
 /* -----------------------------
 Load Student
 ------------------------------*/
+
 async function loadStudent() {
-    const {
-        data: { user }
-    } = await client.auth.getUser();
 
-    if (!user) {
-        window.location.href = "login.html";
-        return;
-    }
+  const { data: { user } } = await client.auth.getUser();
 
-    console.log("Logged in User ID:", user.id);
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
 
-    const { data, error } = await client
-        .from("students")
-        .select("*")
-        .eq("auth_user_id", user.id)
-        .single();
+  const { data, error } = await client
+    .from("students")
+    .select("*")
+    .eq("auth_user_id", user.id)
+    .single();
 
-    /* console.log("Student:", data);
-    console.log("First Name:", data.first_name);
-    console.log("Last Name:", data.last_name);
-    console.log("Error:", error);
+  if (error || !data) {
+    console.error(error);
+    alert("Unable to load student profile.");
+    return;
+  }
 
-    if (error) {
-        console.error(error);
-        alert("Unable to load student profile.");
-        return;
-    } */
+  document.getElementById("welcomeMessage").textContent = getGreeting();
+  document.getElementById("studentName").textContent = `${data.first_name} ${data.last_name}`;
+  document.getElementById("matric").textContent = data.matric_number || "Pending Assignment";
 
+  if (data.group_number) {
 
-    console.log("Student:", data);
-    console.log("Error:", error);
+    const { data: group } = await client
+      .from("student_groups")
+      .select("whatsapp_link")
+      .eq("cohort", data.cohort)
+      .eq("group_number", data.group_number)
+      .maybeSingle();
 
-    if (error || !data) {
-        console.error(error);
-        alert("Unable to load student profile.");
-        return;
-    }
+    const panel = document.getElementById("groupPanel");
+    const content = document.getElementById("groupContent");
 
-    console.log("First Name:", data.first_name);
-    console.log("Last Name:", data.last_name);
+    panel.style.display = "block";
 
-    /* Greeting */
+    content.innerHTML = `
+      <p style="margin-bottom: 12px;">You're in <strong>Group ${data.group_number}</strong>.</p>
+      ${
+        group?.whatsapp_link
+          ? `<a href="${group.whatsapp_link}" target="_blank" class="group-link-btn">
+               <i class="fa-brands fa-whatsapp"></i> Join Group Chat
+             </a>`
+          : `<p style="color: var(--muted);">Group chat link not set yet — check back soon.</p>`
+      }
+    `;
 
-    document.getElementById("welcomeMessage").textContent =
-        getGreeting();
-
-    /* Student Name */
-
-    document.getElementById("studentName").textContent =
-        `${data.first_name} ${data.last_name}`;
-
-    document.getElementById("matric").textContent =
-        data.matric_number || "Pending Assignment";    
-
-    /* Matric Number */
-
-    document.getElementById("matric").textContent =
-        data.matric_number || "Pending Assignment";
-
-    /* Avatar */
-
-    const initials =
-        (data.first_name[0] + data.last_name[0]).toUpperCase();
-    document.querySelector(".avatar").textContent = initials;
-
+  }
 
 }
 
 /* -----------------------------
-Logout
+Today's Schedule
 ------------------------------*/
 
-document.querySelectorAll(".logoutBtn").forEach(button => {
-    button.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await client.auth.signOut();
-        window.location.href = "login.html";
-    });
-});
+async function loadSchedule() {
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const { data: sessions, error } = await client
+    .from("course_sessions")
+    .select("*, courses(course_code, status)")
+    .eq("scheduled_date", today)
+    .order("start_time", { ascending: true });
+
+  const box = document.getElementById("scheduleList");
+
+  if (error || !sessions) {
+    box.innerHTML = `<p>Unable to load today's schedule.</p>`;
+    return;
+  }
+
+  const todaysClasses = sessions.filter(s => s.courses?.status === "Published");
+
+  if (todaysClasses.length === 0) {
+    box.innerHTML = `<p>No classes scheduled today.</p>`;
+    return;
+  }
+
+  box.innerHTML = todaysClasses.map(s => `
+    <div class="schedule-item">
+      <span class="schedule-time">${s.start_time ? s.start_time.slice(0, 5) : "-"}</span>
+      <div>
+        <strong>${s.courses.course_code}</strong> — ${s.title}
+      </div>
+    </div>
+  `).join("");
+
+}
 
 /* -----------------------------
-Initialize
+Today's Announcements
+(also shown in the notification
+bell dropdown, injected by the shell)
+------------------------------*/
+
+async function loadAnnouncements() {
+
+  const { data, error } = await client
+    .from("course_announcements")
+    .select("*, courses(course_code, status)")
+    .order("created_at", { ascending: false });
+
+  const box = document.getElementById("announcementsList");
+
+  if (error || !data) {
+    box.innerHTML = `<p>Unable to load announcements.</p>`;
+    return;
+  }
+
+  const today = new Date().toDateString();
+
+  const todays = data.filter(a =>
+    a.courses?.status === "Published" &&
+    new Date(a.created_at).toDateString() === today
+  );
+
+  if (todays.length === 0) {
+    box.innerHTML = `<p>No announcements at the moment.</p>`;
+    return;
+  }
+
+  box.innerHTML = todays.map(a => `
+    <div class="announcement-item">
+      <span class="announcement-course">${a.courses.course_code}</span>
+      <strong>${a.title}</strong>
+      <p>${a.message}</p>
+    </div>
+  `).join("");
+
+}
+
+/* -----------------------------
+Start
 ------------------------------*/
 
 loadStudent();
+loadSchedule();
+loadAnnouncements();

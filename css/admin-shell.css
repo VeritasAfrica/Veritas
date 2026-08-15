@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS ADMIN SHELL
+Purpose Institute ADMIN SHELL
 Sidebar, topbar, and overlay — shared across
 every admin page. Page-specific styles
 (cards, tables, buttons, charts) live in
@@ -50,10 +50,10 @@ SIDEBAR
 }
 
 .logo h1 {
-  font-size: 32px;
+  font-size: 22px;
   color: #34C759;
   font-weight: 700;
-  white-space: nowrap;
+  line-height: 1.25;
 }
 
 .logo p {
@@ -147,10 +147,6 @@ FOOTER
   cursor: pointer;
   font-size: 15px;
   transition: .3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
 #logoutBtn:hover {
@@ -188,7 +184,7 @@ TOPBAR
 .left-side {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .page-title {
@@ -199,10 +195,10 @@ TOPBAR
 
 .menu-btn {
   display: none;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #fff;
   cursor: pointer;
   font-size: 20px;
@@ -297,26 +293,6 @@ TOPBAR
 RESPONSIVE
 ===================== */
 
-@media (max-width: 1300px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .quick-actions {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 1100px) {
-  .chart-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .bottom-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 900px) {
 
   .sidebar {
@@ -350,14 +326,6 @@ RESPONSIVE
     width: 100%;
   }
 
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .quick-actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
 }
 
 @media (max-width: 600px) {
@@ -379,21 +347,5 @@ RESPONSIVE
     width: 42px;
     height: 42px;
     font-size: 14px;
-  }
-
-  .quick-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-card {
-    min-height: 300px;
-  }
-
-  .table-card {
-    overflow-x: auto;
-  }
-
-  table {
-    min-width: 700px;
   }
 }

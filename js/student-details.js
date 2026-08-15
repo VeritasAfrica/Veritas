@@ -13,6 +13,35 @@ if (!studentId) {
 }
 
 /* ==========================
+Admin-Only Guard
+========================== */
+
+async function checkAdminAccess() {
+
+  const { data: { user } } = await client.auth.getUser();
+
+  if (!user) {
+    window.location.href = "login.html";
+    return false;
+  }
+
+  const { data: me } = await client
+    .from("students")
+    .select("role")
+    .eq("auth_user_id", user.id)
+    .single();
+
+  if (!me || me.role !== "admin") {
+    alert("You don't have access to this page.");
+    window.location.href = "dashboard.html";
+    return false;
+  }
+
+  return true;
+
+}
+
+/* ==========================
 Load Student
 ========================== */
 
@@ -45,6 +74,7 @@ async function loadStudent() {
   document.getElementById("admission_year").value = data.admission_year;
   document.getElementById("cohort").value = data.cohort;
   document.getElementById("matric_number").value = data.matric_number || "Pending Assignment";
+  document.getElementById("group_number").value = data.group_number || "";
 
 }
 
@@ -71,7 +101,10 @@ document.getElementById("saveStudent").addEventListener("click", async () => {
       phone: document.getElementById("phone").value,
       country: document.getElementById("country").value,
       admission_year: document.getElementById("admission_year").value,
-      cohort: document.getElementById("cohort").value
+      cohort: document.getElementById("cohort").value,
+      group_number: document.getElementById("group_number").value
+        ? parseInt(document.getElementById("group_number").value)
+        : null
     })
     .eq("student_id", studentId);
 
@@ -122,4 +155,7 @@ document.getElementById("resetPassword").addEventListener("click", () => {
 Start
 ========================== */
 
-loadStudent();
+(async () => {
+  const allowed = await checkAdminAccess();
+  if (allowed) loadStudent();
+})();

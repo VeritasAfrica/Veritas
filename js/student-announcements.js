@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT ANNOUNCEMENTS
+Purpose Institute STUDENT ANNOUNCEMENTS
 =========================================
 */
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groups | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-course.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Student Groups</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Members</th>
+              <th>WhatsApp Link</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="groupsTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "groups",
+      title: "Groups",
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/groups.js"></script>
+
+</body>
+</html>

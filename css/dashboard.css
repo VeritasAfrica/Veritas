@@ -1,5 +1,5 @@
 /* ==========================================
-   VALMS STUDENT DASHBOARD
+   Purpose Institute STUDENT DASHBOARD
 ========================================== */
 :root{
     --primary:#34C759;
@@ -112,6 +112,65 @@ Panels
     line-height:1.6;
 }
 
+/*
+=========================================
+DASHBOARD — Schedule & Announcement Items
+=========================================
+*/
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  background: var(--secondary);
+  color: var(--primary-dark);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.announcement-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+.announcement-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-course {
+  display: inline-block;
+  background: var(--secondary);
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.announcement-item strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.announcement-item p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
 
 /* ==========================
 Responsive
@@ -155,3 +214,78 @@ Responsive
     }
 }
 
+/*
+=========================================
+DASHBOARD — Schedule & Announcement Items
+=========================================
+*/
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  background: var(--secondary);
+  color: var(--primary-dark);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.announcement-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+.announcement-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-course {
+  display: inline-block;
+  background: var(--secondary);
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.announcement-item strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.announcement-item p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.group-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.group-link-btn:hover {
+  background: #1DA851;
+}

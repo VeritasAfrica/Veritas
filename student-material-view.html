@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Session Materials | VALMS</title>
-  <link rel="stylesheet" href="css/student-shell.css">
+  <title>Session Materials | Purpose Institute</title>
+
   <link rel="stylesheet" href="css/student-portal.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -12,20 +12,71 @@
 
 <body>
 
+  <div class="overlay" id="overlay"></div>
 
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <div id="sidebarMount"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <h2>Purpose Institute</h2>
+        <p>Student Portal</p>
+      </div>
+
+      <nav>
+        <a href="dashboard.html">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+
+        <a href="student-courses.html" class="active">
+          <i class="fa-solid fa-book"></i>
+          My Courses
+        </a>
+
+        <a href="student-attendance.html">
+          <i class="fa-solid fa-calendar-check"></i>
+          Attendance
+        </a>
+
+        <a href="student-results.html">
+          <i class="fa-solid fa-chart-column"></i>
+          Results
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-solid fa-user"></i>
+          My Profile
+        </a>
+
+        <a href="#" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
+      </nav>
+    </aside>
 
     <!-- Main -->
     <main class="main">
-      <div id="topbarMount"></div>
 
-      <h1 id="sessionTitle" style="margin-bottom: 4px;"></h1>
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h2 id="sessionTitle">Loading...</h2>
+
+        <div class="top-icons">
+          <button><i class="fa-solid fa-bell"></i></button>
+          <div class="avatar" id="topAvatar">SB</div>
+        </div>
+      </header>
+
       <p class="page-subtitle" id="sessionType"></p>
 
       <div id="sessionAction" style="margin-bottom: 25px;"></div>
+
+      <div id="quizAction" style="margin-bottom: 25px;"></div>
 
       <div class="table-card">
         <div class="card-title">
@@ -54,17 +105,9 @@
     </main>
 
   </div>
-  <script>
-    window.STUDENT_PAGE = {
-        active: "courses",       // ← this page's key, see table below
-        title: "Session Materials",        // ← the page heading
-    };
-    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/student-shell.js"></script>
   <script src="js/student-material-view.js"></script>
 
 </body>

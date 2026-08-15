@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark Attendance | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/mark-attendance.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="attendance-card">
+        <div class="icon-circle" id="statusIcon">
+          <i class="fa-solid fa-hourglass-half"></i>
+        </div>
+
+        <h2 id="statusTitle">Checking code...</h2>
+        <p id="statusMessage">Please wait a moment.</p>
+
+        <button id="markBtn" class="mark-btn" style="display: none;">
+          Mark My Attendance
+        </button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.STUDENT_PAGE = {
+      active: "courses",
+      title: "Mark Attendance"
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/mark-attendance.js"></script>
+
+</body>
+</html>

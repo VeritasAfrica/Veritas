@@ -1,11 +1,40 @@
 /*
 =========================================
-VALMS Student Profile
+Purpose Institute Student Profile
 =========================================
 */
 
 const params = new URLSearchParams(window.location.search);
 const studentId = params.get("id");
+
+/* ==========================
+Admin-Only Guard
+========================== */
+
+async function checkAdminAccess() {
+
+    const { data: { user } } = await client.auth.getUser();
+
+    if (!user) {
+        window.location.href = "login.html";
+        return false;
+    }
+
+    const { data: me } = await client
+        .from("students")
+        .select("role")
+        .eq("auth_user_id", user.id)
+        .single();
+
+    if (!me || me.role !== "admin") {
+        alert("You don't have access to this page.");
+        window.location.href = "dashboard.html";
+        return false;
+    }
+
+    return true;
+
+}
 
 async function loadStudent() {
 
@@ -119,4 +148,7 @@ Start
 =========================================
 */
 
-loadStudent();
+(async () => {
+    const allowed = await checkAdminAccess();
+    if (allowed) loadStudent();
+})();

@@ -1,0 +1,70 @@
+/*
+=========================================
+Purpose Institute CREATE QUIZ
+=========================================
+*/
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.form-group label .optional {
+  font-weight: 400;
+  color: #94A3B8;
+  font-size: 13px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: .3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #34C759;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.question-form {
+  background: #F8FAFC;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.question-item {
+  padding: 20px;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+.question-item:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 700px) {
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+}

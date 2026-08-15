@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS Authentication
+Purpose Institute Authentication
 =========================================
 */
 

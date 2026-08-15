@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT SHELL
+Purpose Institute STUDENT SHELL
 Sidebar, topbar, and overlay — shared across
 every student-facing page. Page-specific
 styles (cards, tables, forms) live in each
@@ -69,7 +69,8 @@ Sidebar
 
 .logo h2 {
   color: var(--primary);
-  font-size: 28px;
+  font-size: 20px;
+  line-height: 1.25;
 }
 
 .logo p {
@@ -173,6 +174,41 @@ Topbar
 .page-subtitle {
   color: var(--muted);
   margin-bottom: 25px;
+}
+
+/* ==========================
+Notifications
+========================== */
+
+.notif-btn {
+  position: relative;
+  border: none;
+  background: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  transition: .2s;
+}
+
+.notif-btn:hover {
+  background: var(--secondary);
+}
+
+.notif-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--danger);
+  border: 2px solid white;
 }
 
 /* ==========================

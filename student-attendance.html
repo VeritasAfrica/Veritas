@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Attendance | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link rel="stylesheet" href="css/student-attendance.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Overall Attendance</h4>
+            <h2 id="overallRate">0%</h2>
+          </div>
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Sessions Attended</h4>
+            <h2 id="attendedCount">0</h2>
+          </div>
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Sessions Missed</h4>
+            <h2 id="missedCount">0</h2>
+          </div>
+          <i class="fa-solid fa-user-xmark"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>By Course</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Attended</th>
+              <th>Held</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody id="courseAttendanceTable"></tbody>
+        </table>
+      </div>
+
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Attendance Log</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Session</th>
+              <th>Marked At</th>
+            </tr>
+          </thead>
+          <tbody id="logTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.STUDENT_PAGE = {
+      active: "attendance",
+      title: "My Attendance",
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/student-attendance.js"></script>
+
+</body>
+</html>

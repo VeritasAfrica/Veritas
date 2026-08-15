@@ -1,0 +1,18 @@
+/*
+=========================================
+Purpose Institute MY ATTENDANCE
+=========================================
+*/
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/results.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Sessions With Attendance</h4>
+            <h2 id="totalSessions">0</h2>
+          </div>
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Total Records Marked</h4>
+            <h2 id="totalRecords">0</h2>
+          </div>
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+
+        <div class="card orange">
+          <div>
+            <h4>Currently Live</h4>
+            <h2 id="liveCount">0</h2>
+          </div>
+          <i class="fa-solid fa-broadcast-tower"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+
+        <div class="card-title">
+          <h3>Attendance Windows</h3>
+        </div>
+
+        <div class="filters-row">
+          <input type="text" id="searchAttendance" placeholder="Search course or session...">
+          <select id="filterCourse">
+            <option value="">All Courses</option>
+          </select>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Session</th>
+              <th>Opened</th>
+              <th>Status</th>
+              <th>Records</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceTable"></tbody>
+        </table>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "attendance",
+      title: "Attendance",
+      subtitle: "Attendance activity across all courses"
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/attendance.js"></script>
+
+</body>
+</html>

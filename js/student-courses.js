@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS STUDENT COURSES
+Purpose Institute STUDENT COURSES
 =========================================
 */
 

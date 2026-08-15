@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Results | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <section class="stats">
+
+        <div class="card green">
+          <div>
+            <h4>Quizzes Taken</h4>
+            <h2 id="quizCount">0</h2>
+          </div>
+          <i class="fa-solid fa-clipboard-question"></i>
+        </div>
+
+        <div class="card blue">
+          <div>
+            <h4>Average Score</h4>
+            <h2 id="averageScore">0%</h2>
+          </div>
+          <i class="fa-solid fa-chart-simple"></i>
+        </div>
+
+      </section>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>My Results</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Quiz</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.STUDENT_PAGE = {
+      active: "results",
+      title: "My Results",
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/student-results.js"></script>
+
+</body>
+</html>

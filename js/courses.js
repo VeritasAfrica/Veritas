@@ -1,6 +1,6 @@
 /*
 =========================================
-VALMS COURSES (LIST PAGE)
+Purpose Institute COURSES (LIST PAGE)
 =========================================
 */
 

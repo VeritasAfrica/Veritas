@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-course.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <!-- My Profile -->
+      <div class="table-card">
+        <div class="card-title">
+          <h3>My Profile</h3>
+        </div>
+
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName">
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" readonly style="background:#F8FAFC;">
+        </div>
+
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="phone">
+        </div>
+
+        <div id="profileMessage" style="margin-bottom: 16px; font-weight: 600;"></div>
+
+        <button id="saveProfileBtn" class="assign-btn">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Profile
+        </button>
+      </div>
+
+      <!-- Change Password -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Change Password</h3>
+        </div>
+
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" id="newPassword">
+        </div>
+
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="confirmPassword">
+        </div>
+
+        <div id="passwordMessage" style="margin-bottom: 16px; font-weight: 600;"></div>
+
+        <button id="changePasswordBtn" class="assign-btn">
+          <i class="fa-solid fa-key"></i>
+          Update Password
+        </button>
+      </div>
+
+      <!-- System Settings -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>System Settings</h3>
+        </div>
+
+        <div class="form-group" style="max-width: 260px;">
+          <label>Attendance Window (minutes)</label>
+          <input type="number" id="attendanceWindow" min="1">
+        </div>
+
+        <div class="form-group" style="max-width: 260px;">
+          <label>Current Cohort</label>
+          <input type="text" id="currentCohort">
+        </div>
+
+        <div class="form-group" style="max-width: 260px;">
+          <label>Current Year</label>
+          <input type="text" id="currentYear">
+        </div>
+
+        <p style="color: #94A3B8; font-size: 13px; margin-bottom: 16px;">
+          Note: pages using these values (like attendance code generation) currently
+          use their own hardcoded defaults — this saves the values here, but each
+          page needs to be updated separately to read from them.
+        </p>
+
+        <div id="systemMessage" style="margin-bottom: 16px; font-weight: 600;"></div>
+
+        <button id="saveSystemBtn" class="assign-btn">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save System Settings
+        </button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "settings",
+      title: "Settings"
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/settings.js"></script>
+
+</body>
+</html>

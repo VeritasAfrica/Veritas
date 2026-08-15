@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Quiz | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-quiz.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <!-- Quiz Details -->
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Quiz Details</h3>
+        </div>
+
+        <div class="form-group">
+          <label>Quiz Title</label>
+          <input type="text" id="quizTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Description <span class="optional">(optional)</span></label>
+          <textarea id="quizDescription" rows="3"></textarea>
+        </div>
+
+        <div class="form-group" style="max-width: 220px;">
+          <label>Time Limit (minutes) <span class="optional">(optional)</span></label>
+          <input type="number" id="timeLimit" min="1">
+        </div>
+
+        <div class="form-group" style="max-width: 220px;">
+          <label>Status</label>
+          <select id="quizStatus">
+            <option value="Draft">Draft</option>
+            <option value="Published">Published</option>
+          </select>
+        </div>
+
+        <button id="saveQuizBtn" class="assign-btn">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Quiz Details
+        </button>
+      </div>
+
+      <!-- Questions -->
+      <div class="table-card" style="margin-top: 30px;">
+        <div class="card-title">
+          <h3>Questions</h3>
+          <button id="addQuestionBtn" class="assign-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Question
+          </button>
+        </div>
+
+        <div id="questionList"></div>
+
+        <p id="noQuestions" style="color: #94A3B8; padding: 20px 0;">
+          No questions yet. Save the quiz details above first, then add questions.
+        </p>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "courses",
+      title: "Create Quiz"
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/create-quiz.js"></script>
+
+</body>
+</html>
