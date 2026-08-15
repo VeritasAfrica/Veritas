@@ -12,57 +12,6 @@ if (!sessionId) {
   window.location.href = "student-courses.html";
 }
 
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-const logoutBtn = document.getElementById("logoutBtn");
-
-/* ==========================
-Mobile Menu
-========================== */
-
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.add("show");
-  overlay.classList.add("show");
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("show");
-  overlay.classList.remove("show");
-});
-
-/* ==========================
-Logout
-========================== */
-
-logoutBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await client.auth.signOut();
-  window.location.href = "login.html";
-});
-
-/* ==========================
-Load Avatar
-========================== */
-
-async function loadAvatar() {
-
-  const { data: { user } } = await client.auth.getUser();
-  if (!user) return;
-
-  const { data } = await client
-    .from("students")
-    .select("first_name, last_name")
-    .eq("auth_user_id", user.id)
-    .single();
-
-  if (data) {
-    const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-    document.getElementById("topAvatar").textContent = initials;
-  }
-
-}
-
 /* ==========================
 Load Session
 ========================== */
@@ -83,7 +32,6 @@ async function loadSession() {
   }
 
   document.getElementById("sessionTitle").textContent = session.title;
-  document.getElementById("sessionType").textContent = session.session_type;
   document.getElementById("description").textContent = session.description || "No description provided.";
 
   const dateLabel = session.scheduled_date
@@ -258,7 +206,6 @@ async function loadQuizAction() {
 Start
 ========================== */
 
-loadAvatar();
 loadSession();
 loadMaterials();
 loadQuizAction();
