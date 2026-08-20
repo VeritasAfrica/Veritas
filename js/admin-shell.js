@@ -192,12 +192,9 @@ BEFORE this script loads, e.g.:
       return;
     }
 
-    const firstInitial = data.first_name?.[0] ?? "";
-    const lastInitial = data.last_name?.[0] ?? "";
-    const initials = (firstInitial + lastInitial).toUpperCase() || "?";
-    document.getElementById("adminName").textContent = data.full_name;
-    document.getElementById("adminAvatar").textContent = initials;
-    document.getElementById("topAvatar").textContent = initials;
+    document.getElementById("adminName").textContent = "Administrator";
+    document.getElementById("adminAvatar").textContent = "A";
+    document.getElementById("topAvatar").textContent = "A";
 
   }
 
