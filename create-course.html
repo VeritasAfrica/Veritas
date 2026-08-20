@@ -39,8 +39,18 @@
           </div>
 
           <div class="form-group">
-            <label>Department</label>
-            <input type="text" id="department">
+            <label>Departments <span class="optional">(select at least one — checking all 3 means "All")</span></label>
+            <div class="department-checkboxes">
+              <label class="dept-checkbox">
+                <input type="checkbox" class="dept-input" value="Creative"> Creative
+              </label>
+              <label class="dept-checkbox">
+                <input type="checkbox" class="dept-input" value="Entrepreneur"> Entrepreneur
+              </label>
+              <label class="dept-checkbox">
+                <input type="checkbox" class="dept-input" value="Corporate"> Corporate
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
@@ -80,8 +90,8 @@
   </div>
   <script>
   window.ADMIN_PAGE = {
-    active: "courses",       // ← this page's key, see table below
-    title: "Create Course",        // ← the page heading
+    active: "courses",
+    title: "Create Course",
   };
 </script>
 

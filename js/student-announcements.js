@@ -31,6 +31,19 @@ async function loadAnnouncements() {
     return;
   }
 
+  // Adjust the header depending on whether this is a global feed
+  // or scoped to one course.
+  const titleEl = document.querySelector(".topbar h2");
+  const subtitleEl = document.querySelector(".page-subtitle");
+
+  if (courseId && data.length > 0 && data[0].courses) {
+    titleEl.textContent = `${data[0].courses.course_title} — Announcements`;
+    subtitleEl.textContent = `Updates for ${data[0].courses.course_code}`;
+  } else {
+    titleEl.textContent = "Announcements";
+    subtitleEl.textContent = "Latest updates from your courses";
+  }
+
   const container = document.getElementById("announcementList");
   container.innerHTML = "";
 

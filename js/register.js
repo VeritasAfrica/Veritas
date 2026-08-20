@@ -27,7 +27,14 @@ email:document.getElementById("email").value.trim().toLowerCase(),
 phone:document.getElementById("phone").value.trim(),
 country:document.getElementById("country").value,
 password:document.getElementById("password").value,
-confirm:document.getElementById("confirm_password").value
+confirm:document.getElementById("confirm_password").value,
+/*
+  Uncomment this line inside the `student` object (alongside
+  firstName, lastName, email, etc.) once the department select
+  above is uncommented too:
+
+  department: document.getElementById("department").value,
+*/
 };
 
 if(!validateEmail(student.email)){

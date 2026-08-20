@@ -4,35 +4,7 @@ Purpose Institute STUDENT COURSES
 =========================================
 */
 
-const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-const logoutBtn = document.getElementById("logoutBtn");
 const search = document.getElementById("searchCourse");
-
-/* ==========================
-Mobile Menu
-========================== */
-
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.add("show");
-  overlay.classList.add("show");
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("show");
-  overlay.classList.remove("show");
-});
-
-/* ==========================
-Logout
-========================== */
-
-logoutBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await client.auth.signOut();
-  window.location.href = "login.html";
-});
 
 /* ==========================
 Load Courses
@@ -49,14 +21,11 @@ async function loadCourses() {
 
   const { data: profile } = await client
     .from("students")
-    .select("*")
+    .select("department")
     .eq("auth_user_id", user.id)
     .single();
 
-  if (profile) {
-    const initials = (profile.first_name[0] + profile.last_name[0]).toUpperCase();
-    document.getElementById("topAvatar").textContent = initials;
-  }
+  const studentDepartment = profile?.department || "All";
 
   /*
   Temporary:
@@ -65,9 +34,9 @@ async function loadCourses() {
   Replace with enrollments/course_registration table.
   */
 
-  const { data: courses, error } = await client
+  const { data: allPublished, error } = await client
     .from("courses")
-    .select("*")
+    .select("*, course_departments(department)")
     .eq("status", "Published")
     .order("course_code");
 
@@ -75,6 +44,17 @@ async function loadCourses() {
     console.error(error);
     return;
   }
+
+  // A course is visible if: the student's own department is "All"
+  // (current cohort, not segmented yet), or the course has no
+  // department tags set (legacy/untagged courses stay visible),
+  // or the course is tagged for the student's specific department.
+  const courses = allPublished.filter(course => {
+    const tags = course.course_departments || [];
+    if (studentDepartment === "All") return true;
+    if (tags.length === 0) return true;
+    return tags.some(t => t.department === studentDepartment);
+  });
 
   document.getElementById("courseCount").textContent = courses.length;
 
@@ -116,11 +96,17 @@ async function loadCourses() {
   table.innerHTML = "";
 
   courses.forEach(course => {
+
+    const deptTags = course.course_departments || [];
+    const deptLabel = deptTags.length === 3
+      ? "All"
+      : deptTags.map(d => d.department).join(", ") || "-";
+
     table.innerHTML += `
       <tr>
         <td><strong>${course.course_code}</strong></td>
         <td>${course.course_title}</td>
-        <td>${course.department ?? "-"}</td>
+        <td>${deptLabel}</td>
         <td><span class="status active">${course.status}</span></td>
         <td>
           <button class="view-btn" onclick="openCourse(${course.course_id})">
@@ -157,4 +143,4 @@ function openCourse(id) {
 Start
 ========================== */
 
-loadCourses();
+loadCourses();  

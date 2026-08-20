@@ -24,10 +24,12 @@
 
     <main class="main">
       <div id="topbarMount"></div>
-      <header class="topbar">
+
+      <!-- Session title + actions (page-specific, separate from the shell's generic topbar) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 25px;">
         <div>
-          <h2 id="sessionTitle">Loading...</h2>
-          <p id="sessionType"></p>
+          <h2 id="sessionTitle" style="font-size: 26px; margin-bottom: 4px;">Loading...</h2>
+          <p id="sessionType" style="color: #64748B;"></p>
         </div>
 
         <div style="display: flex; gap: 12px;">
@@ -41,7 +43,7 @@
             Upload Material
           </button>
         </div>
-      </header>
+      </div>
 
       <section class="stats">
 
@@ -134,7 +136,7 @@
             <tr>
               <th>Title</th>
               <th>Type</th>
-              <th>Action</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="materialTable"></tbody>
@@ -146,8 +148,8 @@
   </div>
   <script>
   window.ADMIN_PAGE = {
-    active: "courses",       // ← this page's key, see table below
-    title: "Session Details",        // ← the page heading
+    active: "courses",
+    title: "Session Details",
   };
 </script>
 

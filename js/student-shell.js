@@ -1,6 +1,6 @@
 /*
 =========================================
-Purpose Institute STUDENT SHELL
+VALMS STUDENT SHELL
 Injects the sidebar + topbar on every
 student-facing page, wires up mobile menu,
 logout, and loads the student's avatar.
@@ -175,9 +175,16 @@ BEFORE this script loads, e.g.:
 
     const { data } = await client
       .from("students")
-      .select("first_name, last_name")
+      .select("first_name, last_name, is_restricted")
       .eq("auth_user_id", user.id)
       .single();
+
+    if (data?.is_restricted) {
+      alert("Your account access has been restricted. Contact the administrator for help.");
+      await client.auth.signOut();
+      window.location.href = "login.html";
+      return;
+    }
 
     if (data) {
       const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();

@@ -15,24 +15,12 @@ if (!sessionId) {
 const form = document.getElementById("materialForm");
 const message = document.getElementById("message");
 const uploadBtn = document.getElementById("uploadBtn");
-const logoutBtn = document.getElementById("logoutBtn");
 
 const typeSelect = document.getElementById("type");
 const fileGroup = document.getElementById("fileGroup");
 const linkGroup = document.getElementById("linkGroup");
 const fileInput = document.getElementById("file");
 const linkInput = document.getElementById("link");
-
-/* ==========================
-Logout
-========================== */
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    await client.auth.signOut();
-    window.location.href = "login.html";
-  });
-}
 
 /* ==========================
 Toggle File vs Link Input

@@ -13,28 +13,6 @@ if (!courseId) {
 }
 
 /* ==========================
-Load Admin/Student Avatar
-========================== */
-
-async function loadAvatar() {
-
-  const { data: { user } } = await client.auth.getUser();
-  if (!user) return;
-
-  const { data } = await client
-    .from("students")
-    .select("first_name, last_name")
-    .eq("auth_user_id", user.id)
-    .single();
-
-  if (data) {
-    const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-    document.getElementById("topAvatar").textContent = initials;
-  }
-
-}
-
-/* ==========================
 Load Course
 ========================== */
 
@@ -53,10 +31,21 @@ async function loadCourse() {
     return;
   }
 
-  document.getElementById("courseCode").textContent = `${course.course_title} (${course.course_code})`;
-  document.getElementById("department").textContent = course.department ?? "-";
+  document.getElementById("courseTitle").textContent = course.course_title;
+  document.getElementById("courseCode").textContent = course.course_code;
   document.getElementById("description").textContent = course.description || "No description provided.";
   document.getElementById("courseStatus").textContent = course.status;
+
+  document.getElementById("department").textContent = "Loading...";
+
+  const { data: departments } = await client
+    .from("course_departments")
+    .select("department")
+    .eq("course_id", courseId);
+
+  const deptList = (departments || []).map(d => d.department);
+  document.getElementById("department").textContent =
+    deptList.length === 3 ? "All" : (deptList.join(", ") || "None set");
 
 }
 
@@ -207,7 +196,6 @@ function openSession(id) {
 Start
 ========================== */
 
-loadAvatar();
 loadCourse();
 loadSessions();
 loadAnnouncements();

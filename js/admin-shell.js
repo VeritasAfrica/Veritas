@@ -1,6 +1,6 @@
 /*
 =========================================
-Purpose Institute ADMIN SHELL
+VALMS ADMIN SHELL
 Injects the sidebar + topbar on every admin
 page, wires up mobile menu, logout, and
 loads the admin's name/avatar.
@@ -186,12 +186,18 @@ BEFORE this script loads, e.g.:
       .eq("auth_user_id", user.id)
       .single();
 
-    if (data) {
-      const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-      document.getElementById("adminName").textContent = data.full_name;
-      document.getElementById("adminAvatar").textContent = initials;
-      document.getElementById("topAvatar").textContent = initials;
+    if (!data || data.role !== "admin") {
+      alert("You don't have access to this page.");
+      window.location.href = "dashboard.html";
+      return;
     }
+
+    const firstInitial = data.first_name?.[0] ?? "";
+    const lastInitial = data.last_name?.[0] ?? "";
+    const initials = (firstInitial + lastInitial).toUpperCase() || "?";
+    document.getElementById("adminName").textContent = data.full_name;
+    document.getElementById("adminAvatar").textContent = initials;
+    document.getElementById("topAvatar").textContent = initials;
 
   }
 

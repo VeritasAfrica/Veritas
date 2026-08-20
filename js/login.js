@@ -80,28 +80,15 @@ form.addEventListener("submit", async (e) => {
         password.value
     );
 
-    loginBtn.disabled = false;
-
-    loginBtn.textContent = "Login";
-
     if (error) {
 
-        /* if (error.message.toLowerCase().includes("email")) {
-            message.style.color = "#e53935";
-            message.innerHTML =
-                "Please verify your email before logging in."; */
-                
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login";
+
         if (error.message.toLowerCase().includes("invalid")) {
 
             message.style.color = "#e53935";
 
-            message.innerHTML =
-                "Incorrect email or password.";
-
-        } else if (
-            error.message.toLowerCase().includes("invalid")
-        ) {
-            message.style.color = "#e53935";
             message.innerHTML =
                 "Incorrect email or password.";
 
@@ -115,15 +102,39 @@ form.addEventListener("submit", async (e) => {
 
     }
 
+    /* ---------------------------------
+    Restriction Check
+    (must happen before the success
+    message/redirect, not after)
+    ----------------------------------*/
+
+    const { data: student } =
+        await getStudentProfile(data.user.id);
+
+    if (student?.is_restricted) {
+
+        await client.auth.signOut();
+
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login";
+
+        message.style.color = "#e53935";
+        message.innerHTML =
+            "Your account access has been restricted. Contact the administrator.";
+
+        return;
+
+    }
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Login";
+
     message.style.color = "#28a745";
 
     message.innerHTML =
         "✅ Welcome back! Redirecting...";
 
-    setTimeout(async () => {
-
-        const { data: student } =
-            await getStudentProfile(data.user.id);
+    setTimeout(() => {
 
         if (student && student.role === "admin") {
             window.location.href = "admin.html";

@@ -90,6 +90,9 @@ async function loadStudent() {
     document.getElementById("matric").textContent =
         student.matric_number || "Pending Assignment";
 
+    document.getElementById("groupNumber").textContent =
+        student.group_number || "Not Assigned";
+
     document.getElementById("avatar").textContent =
         (
             student.first_name.charAt(0) +

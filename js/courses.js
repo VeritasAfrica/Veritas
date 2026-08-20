@@ -5,31 +5,6 @@ Purpose Institute COURSES (LIST PAGE)
 */
 
 /* ==========================
-Admin Name / Avatar
-========================== */
-
-async function loadAdmin() {
-
-  const { data: { user } } = await client.auth.getUser();
-
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  const { data } = await client
-    .from("students")
-    .select("*")
-    .eq("auth_user_id", user.id)
-    .single();
-
-  if (data) {
-    document.getElementById("adminName").textContent = data.full_name;
-  }
-
-}
-
-/* ==========================
 Create Course Button
 ========================== */
 
@@ -82,7 +57,7 @@ async function loadCourses() {
 
   const { data: courses = [], error } = await client
     .from("courses")
-    .select("*")
+    .select("*, course_departments(department)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -122,10 +97,16 @@ function renderCourses(courses) {
       ? new Date(course.created_at).toLocaleDateString()
       : "-";
 
+    const deptTags = course.course_departments || [];
+    const deptLabel = deptTags.length === 3
+      ? "All"
+      : deptTags.map(d => d.department).join(", ") || "-";
+
     table.innerHTML += `
       <tr>
         <td><strong>${course.course_code}</strong></td>
         <td>${course.course_title}</td>
+        <td>${deptLabel}</td>
         <td><span class="status ${statusClass}">${course.status}</span></td>
         <td>${createdDate}</td>
         <td>

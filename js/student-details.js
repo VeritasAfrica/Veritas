@@ -76,7 +76,58 @@ async function loadStudent() {
   document.getElementById("matric_number").value = data.matric_number || "Pending Assignment";
   document.getElementById("group_number").value = data.group_number || "";
 
+  updateRestrictButton(data.is_restricted);
+
 }
+
+/*
+=========================================
+Restrict / Unrestrict Access
+=========================================
+*/
+
+let currentlyRestricted = false;
+
+function updateRestrictButton(isRestricted) {
+  currentlyRestricted = isRestricted;
+  const btn = document.getElementById("restrictBtn");
+  const text = document.getElementById("restrictBtnText");
+
+  if (isRestricted) {
+    btn.classList.add("active");
+    text.textContent = "Unrestrict Access";
+  } else {
+    btn.classList.remove("active");
+    text.textContent = "Restrict Access";
+  }
+}
+
+document.getElementById("restrictBtn").addEventListener("click", async () => {
+
+  const newValue = !currentlyRestricted;
+
+  const confirmed = confirm(
+    newValue
+      ? "Restrict this student? They will be logged out and unable to log back in until unrestricted."
+      : "Restore this student's access?"
+  );
+
+  if (!confirmed) return;
+
+  const { error } = await client
+    .from("students")
+    .update({ is_restricted: newValue })
+    .eq("student_id", studentId);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  updateRestrictButton(newValue);
+  alert(newValue ? "Student access restricted." : "Student access restored.");
+
+});
 
 /* ==========================
 Save Student

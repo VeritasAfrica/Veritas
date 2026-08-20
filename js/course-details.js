@@ -13,19 +13,6 @@ if (!courseId) {
 }
 
 /* ==========================
-Logout
-========================== */
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    await client.auth.signOut();
-    window.location.href = "login.html";
-  });
-}
-
-/* ==========================
 Load Course
 ========================== */
 
@@ -47,8 +34,18 @@ async function loadCourse() {
   document.getElementById("courseTitle").textContent = course.course_title;
   document.getElementById("courseCode").textContent = course.course_code;
   document.getElementById("courseStatus").textContent = course.status;
-  document.getElementById("department").textContent = course.department;
   document.getElementById("description").textContent = course.description || "No description provided.";
+
+  document.getElementById("department").textContent = "Loading...";
+
+  const { data: departments } = await client
+    .from("course_departments")
+    .select("department")
+    .eq("course_id", courseId);
+
+  const deptList = (departments || []).map(d => d.department);
+  document.getElementById("department").textContent =
+    deptList.length === 3 ? "All" : (deptList.join(", ") || "None set");
 
 }
 

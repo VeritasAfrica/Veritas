@@ -130,3 +130,34 @@
     flex-direction: column;
   }
 }
+
+.restrict-btn {
+  background: #F59E0B;
+  color: #fff;
+  border: none;
+  padding: 15px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.restrict-btn:hover {
+  background: #D97706;
+}
+
+.restrict-btn.active {
+  background: #64748B;
+}
+
+.restrict-btn.active:hover {
+  background: #475569;
+}
+
+/* Force consistent sizing across all four action buttons,
+   regardless of which shared class each one uses */
+.action-buttons button {
+  padding: 15px 24px;
+  font-size: 15px;
+}

@@ -15,7 +15,6 @@ if (!courseId) {
 const form = document.getElementById("sessionForm");
 const message = document.getElementById("message");
 const saveBtn = document.getElementById("saveSession");
-const logoutBtn = document.getElementById("logoutBtn");
 
 /* ==========================
 Save Session
