@@ -25,7 +25,7 @@
     <main class="main">
       <div id="topbarMount"></div>
 
-      <!-- Session title + actions (page-specific, separate from the shell's generic topbar) -->
+      <!-- Session title + actions -->
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 25px;">
         <div>
           <h2 id="sessionTitle" style="font-size: 26px; margin-bottom: 4px;">Loading...</h2>
@@ -71,6 +71,14 @@
           <i class="fa-solid fa-circle-info"></i>
         </div>
 
+        <div class="card purple">
+          <div>
+            <h4>Attendance</h4>
+            <h2 id="attendanceCount" style="font-size: 20px;">0</h2>
+          </div>
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+
       </section>
 
       <div class="table-card">
@@ -80,29 +88,10 @@
         <p id="description"></p>
       </div>
 
-      <!-- Class Status + Attendance -->
+      <!-- Attendance -->
       <div class="table-card" style="margin-top: 30px;">
         <div class="card-title">
-          <h3>Class Status</h3>
-          <div style="display: flex; gap: 12px;">
-            <button id="startClassBtn" class="assign-btn">
-              <i class="fa-solid fa-play"></i>
-              Start Class
-            </button>
-            <button id="endClassBtn" class="delete-btn" style="display: none;">
-              <i class="fa-solid fa-stop"></i>
-              End Class
-            </button>
-          </div>
-        </div>
-
-        <div id="classStatusBox" style="margin-bottom: 20px;"></div>
-        <div id="attendanceCodeBox"></div>
-      </div>
-
-      <div class="table-card" style="margin-top: 30px;">
-        <div class="card-title">
-          <h3>Attendance Records</h3>
+          <h3>Attendance (auto-marked via quiz)</h3>
         </div>
 
         <table>

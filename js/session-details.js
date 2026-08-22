@@ -16,15 +16,63 @@ const uploadBtn = document.getElementById("uploadMaterial");
 const publishToggle = document.getElementById("publishToggle");
 const publishToggleText = document.getElementById("publishToggleText");
 
-let currentStatus = "Draft";
-
-/* ==========================
-Upload Material
-========================== */
+let currentPublishStatus = "Draft";
 
 uploadBtn.addEventListener("click", () => {
   window.location.href = `upload-material.html?session=${sessionId}`;
 });
+
+/* ==========================
+Publish / Unpublish Toggle
+(controls whether students can see this
+session at all — separate from the
+Live/Ended timing status below)
+========================== */
+
+function updatePublishButton() {
+  publishToggleText.textContent = currentPublishStatus === "Published" ? "Unpublish" : "Publish";
+}
+
+publishToggle.addEventListener("click", async () => {
+
+  const newStatus = currentPublishStatus === "Published" ? "Draft" : "Published";
+
+  const { error } = await client
+    .from("course_sessions")
+    .update({ status: newStatus })
+    .eq("session_id", sessionId);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  currentPublishStatus = newStatus;
+  updatePublishButton();
+
+});
+
+/* ==========================
+Compute Live/Ended Status
+(purely time-based, separate from the
+Draft/Published toggle above)
+========================== */
+
+function computeTimingStatus(session) {
+
+  if (!session.scheduled_date || !session.start_time || !session.end_time) {
+    return "Scheduled";
+  }
+
+  const start = new Date(`${session.scheduled_date}T${session.start_time}`);
+  const end = new Date(`${session.scheduled_date}T${session.end_time}`);
+  const now = new Date();
+
+  if (now < start) return "Scheduled";
+  if (now <= end) return "Live";
+  return "Ended";
+
+}
 
 /* ==========================
 Load Session
@@ -48,10 +96,16 @@ async function loadSession() {
   document.getElementById("sessionTitle").textContent = data.title;
   document.getElementById("sessionType").textContent = data.session_type;
   document.getElementById("description").textContent = data.description || "No description provided.";
-  document.getElementById("sessionStatus").textContent = data.status;
 
-  currentStatus = data.status;
+  currentPublishStatus = data.status;
   updatePublishButton();
+
+  const timingStatus = computeTimingStatus(data);
+  const statusEl = document.getElementById("sessionStatus");
+  statusEl.textContent = timingStatus;
+
+  const statusColors = { Scheduled: "#94A3B8", Live: "#34C759", Ended: "#64748B" };
+  statusEl.style.color = statusColors[timingStatus];
 
   if (data.scheduled_date) {
     const dateLabel = new Date(data.scheduled_date).toLocaleDateString();
@@ -62,34 +116,6 @@ async function loadSession() {
   }
 
 }
-
-/* ==========================
-Publish / Unpublish Toggle
-========================== */
-
-function updatePublishButton() {
-  publishToggleText.textContent = currentStatus === "Published" ? "Unpublish" : "Publish";
-}
-
-publishToggle.addEventListener("click", async () => {
-
-  const newStatus = currentStatus === "Published" ? "Draft" : "Published";
-
-  const { error } = await client
-    .from("course_sessions")
-    .update({ status: newStatus })
-    .eq("session_id", sessionId);
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  currentStatus = newStatus;
-  document.getElementById("sessionStatus").textContent = newStatus;
-  updatePublishButton();
-
-});
 
 /* ==========================
 Load Materials
@@ -162,190 +188,24 @@ async function deleteMaterial(materialId) {
 
 }
 
-
-const ATTENDANCE_WINDOW_MINUTES = 60; // how long a code stays open — adjust freely
-
 /* ==========================
-Start Class
-========================== */
-
-document.getElementById("startClassBtn").addEventListener("click", async () => {
-
-  const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-  const closesAt = new Date(Date.now() + ATTENDANCE_WINDOW_MINUTES * 60 * 1000).toISOString();
-
-  const { error: sessionError } = await client
-    .from("course_sessions")
-    .update({
-      session_status: "Live",
-      class_started_at: new Date().toISOString()
-    })
-    .eq("session_id", sessionId);
-
-  if (sessionError) {
-    alert(sessionError.message);
-    return;
-  }
-
-  const { error: attendanceError } = await client
-    .from("attendance_sessions")
-    .insert({
-      session_id: sessionId,
-      attendance_code: code,
-      closes_at: closesAt,
-      status: "Open"
-    });
-
-  if (attendanceError) {
-    alert(attendanceError.message);
-    return;
-  }
-
-  loadClassStatus();
-
-});
-
-/* ==========================
-End Class
-========================== */
-
-document.getElementById("endClassBtn").addEventListener("click", async () => {
-
-  const confirmed = confirm("End this class? This will close attendance too.");
-  if (!confirmed) return;
-
-  const { error: sessionError } = await client
-    .from("course_sessions")
-    .update({
-      session_status: "Ended",
-      class_ended_at: new Date().toISOString()
-    })
-    .eq("session_id", sessionId);
-
-  if (sessionError) {
-    alert(sessionError.message);
-    return;
-  }
-
-  const { error: attendanceError } = await client
-    .from("attendance_sessions")
-    .update({ status: "Closed" })
-    .eq("session_id", sessionId)
-    .eq("status", "Open");
-
-  if (attendanceError) {
-    console.error(attendanceError);
-  }
-
-  loadClassStatus();
-
-});
-
-/* ==========================
-Load Class Status
-========================== */
-
-async function loadClassStatus() {
-
-  const { data: session, error } = await client
-    .from("course_sessions")
-    .select("session_status, class_started_at, class_ended_at")
-    .eq("session_id", sessionId)
-    .single();
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const statusBox = document.getElementById("classStatusBox");
-  const startBtn = document.getElementById("startClassBtn");
-  const endBtn = document.getElementById("endClassBtn");
-  const codeBox = document.getElementById("attendanceCodeBox");
-
-  const statusColors = {
-    Scheduled: "#94A3B8",
-    Live: "#34C759",
-    Ended: "#64748B"
-  };
-
-  statusBox.innerHTML = `
-    <span class="status" style="background:${statusColors[session.session_status]}22; color:${statusColors[session.session_status]};">
-      ${session.session_status}
-    </span>
-    ${session.class_started_at ? `<p style="color:#64748B; margin-top:8px; font-size:13px;">Started ${new Date(session.class_started_at).toLocaleString()}</p>` : ""}
-    ${session.class_ended_at ? `<p style="color:#64748B; font-size:13px;">Ended ${new Date(session.class_ended_at).toLocaleString()}</p>` : ""}
-  `;
-
-  if (session.session_status === "Live") {
-    startBtn.style.display = "none";
-    endBtn.style.display = "inline-flex";
-    loadAttendanceCode();
-  } else {
-    startBtn.style.display = "inline-flex";
-    endBtn.style.display = "none";
-    startBtn.innerHTML = session.session_status === "Ended"
-      ? `<i class="fa-solid fa-rotate-right"></i> Restart Class`
-      : `<i class="fa-solid fa-play"></i> Start Class`;
-    codeBox.innerHTML = "";
-  }
-
-}
-
-/* ==========================
-Load Current Attendance Code
-========================== */
-
-async function loadAttendanceCode() {
-
-  const { data, error } = await client
-    .from("attendance_sessions")
-    .select("attendance_code, closes_at")
-    .eq("session_id", sessionId)
-    .eq("status", "Open")
-    .order("opened_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  const codeBox = document.getElementById("attendanceCodeBox");
-
-  if (error || !data) {
-    codeBox.innerHTML = "";
-    return;
-  }
-
-  const expired = new Date(data.closes_at) < new Date();
-  const link = `${window.location.origin}${window.location.pathname.replace("session-details.html", "mark-attendance.html")}?code=${data.attendance_code}`;
-
-  codeBox.innerHTML = `
-    <div style="background:#F8FAFC; border-radius:14px; padding:20px;">
-      <p style="font-size:14px; color:#64748B; margin-bottom:6px;">
-        ${expired ? "Attendance window closed" : `Open until ${new Date(data.closes_at).toLocaleTimeString()}`} — share this link:
-      </p>
-      <p style="font-family:monospace; font-size:16px; font-weight:600; word-break:break-all;">
-        ${link}
-      </p>
-    </div>
-  `;
-
-}
-
-/* ==========================
-Load Attendance Records
+Load Attendance (auto-marked via quiz)
 ========================== */
 
 async function loadAttendance() {
 
   const { data, error } = await client
-    .from("attendance_records")
-    .select("*, students(full_name, matric_number), attendance_sessions!inner(session_id)")
-    .eq("attendance_sessions.session_id", sessionId)
+    .from("session_attendance")
+    .select("*, students(full_name, matric_number)")
+    .eq("session_id", sessionId)
     .order("marked_at", { ascending: false });
 
   if (error) {
     console.error(error);
     return;
   }
+
+  document.getElementById("attendanceCount").textContent = data.length;
 
   const table = document.getElementById("attendanceTable");
   table.innerHTML = "";
@@ -373,6 +233,9 @@ async function loadAttendance() {
 
 }
 
+/* ==========================
+Load Quiz
+========================== */
 
 async function loadQuiz() {
 
@@ -428,6 +291,5 @@ Start
 
 loadSession();
 loadMaterials();
-loadClassStatus();
 loadAttendance();
 loadQuiz();

@@ -155,9 +155,91 @@ async function loadAnnouncements() {
 }
 
 /* -----------------------------
+Push Notifications
+------------------------------*/
+
+// Paste your VAPID PUBLIC key here (from `npx web-push generate-vapid-keys`)
+const VAPID_PUBLIC_KEY = "BAPIN3CIeEqQfJYWybqcOUf3U5FDXRnnNHcMzRHVQQ0fgQLbo5crp_sLMZNAnQ2mCwWpdfWs6DLrsPUzb4YR_8E";
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+}
+
+async function checkNotificationStatus() {
+
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    document.getElementById("notifPanel").style.display = "none";
+    return;
+  }
+
+  const registration = await navigator.serviceWorker.ready.catch(() => null);
+  if (!registration) return;
+
+  const existingSubscription = await registration.pushManager.getSubscription();
+
+  if (existingSubscription) {
+    document.getElementById("notifContent").innerHTML = `<p>✅ Daily reminders are on.</p>`;
+  }
+
+}
+
+document.getElementById("enableNotifBtn").addEventListener("click", async () => {
+
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    alert("Push notifications aren't supported on this browser.");
+    return;
+  }
+
+  const permission = await Notification.requestPermission();
+
+  if (permission !== "granted") {
+    alert("Notifications were not enabled.");
+    return;
+  }
+
+  const registration = await navigator.serviceWorker.register("/sw.js");
+  await navigator.serviceWorker.ready;
+
+  const subscription = await registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+  });
+
+  const { data: { user } } = await client.auth.getUser();
+  const { data: student } = await client
+    .from("students")
+    .select("student_id")
+    .eq("auth_user_id", user.id)
+    .single();
+
+  const subJson = subscription.toJSON();
+
+  const { error } = await client
+    .from("push_subscriptions")
+    .upsert({
+      student_id: student.student_id,
+      endpoint: subJson.endpoint,
+      p256dh: subJson.keys.p256dh,
+      auth: subJson.keys.auth
+    }, { onConflict: "student_id,endpoint" });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById("notifContent").innerHTML = `<p>✅ Daily reminders are on.</p>`;
+
+});
+
+/* -----------------------------
 Start
 ------------------------------*/
 
 loadStudent();
 loadSchedule();
 loadAnnouncements();
+checkNotificationStatus();

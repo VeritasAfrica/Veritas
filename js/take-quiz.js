@@ -13,6 +13,7 @@ if (!quizId) {
 }
 
 let studentId = null;
+let quizSessionId = null;
 
 async function loadQuiz() {
 
@@ -33,7 +34,7 @@ async function loadQuiz() {
 
   const { data: quiz, error } = await client
     .from("quizzes")
-    .select("*, quiz_questions(*)")
+    .select("*, quiz_questions(*), session_id")
     .eq("quiz_id", quizId)
     .eq("status", "Published")
     .single();
@@ -44,21 +45,37 @@ async function loadQuiz() {
     return;
   }
 
-  // Already submitted? Show the result instead of the form.
+  quizSessionId = quiz.session_id;
+
   const { data: existing } = await client
     .from("quiz_submissions")
-    .select("score")
+    .select("score, attempt_number")
     .eq("quiz_id", quizId)
     .eq("student_id", studentId)
-    .maybeSingle();
+    .order("attempt_number", { ascending: false });
 
-  if (existing) {
-    showResult(existing.score, quiz.title);
-    return;
+  const totalPoints = quiz.quiz_questions.reduce((s, q) => s + q.points, 0);
+
+  if (existing && existing.length > 0) {
+
+    const latest = existing[0];
+    const percent = totalPoints > 0 ? Math.round((latest.score / totalPoints) * 100) : 0;
+    const passed = percent >= 70;
+
+    if (passed || existing.length >= 2) {
+      await showResult(latest.score, totalPoints, quiz.title);
+      return;
+    }
+
+    // One attempt used, failed — allow the retake, but warn it's final
+    document.getElementById("quizDescription").innerHTML =
+      `${quiz.description || ""}<br><strong style="color:#EF4444;">This is your final attempt.</strong>`;
+
+  } else {
+    document.getElementById("quizDescription").textContent = quiz.description || "";
   }
 
   document.querySelector(".topbar h2").textContent = quiz.title;
-  document.getElementById("quizDescription").textContent = quiz.description || "";
 
   const list = document.getElementById("questionList");
   list.innerHTML = "";
@@ -117,28 +134,50 @@ document.getElementById("quizForm").addEventListener("submit", async (e) => {
     .single();
 
   if (error) {
+    // The trigger raises specific messages like "No more attempts allowed"
     alert(error.message);
     submitBtn.disabled = false;
     submitBtn.textContent = "Submit Quiz";
     return;
   }
 
-  showResult(data.score, document.querySelector(".topbar h2").textContent);
+  const { data: quiz } = await client
+    .from("quizzes")
+    .select("quiz_questions(points)")
+    .eq("quiz_id", quizId)
+    .single();
+
+  const totalPoints = quiz.quiz_questions.reduce((s, q) => s + q.points, 0);
+
+  await showResult(data.score, totalPoints, document.querySelector(".topbar h2").textContent);
 
 });
 
-function showResult(score, title) {
+async function showResult(score, totalPoints, title) {
 
   document.getElementById("quizForm").style.display = "none";
+
+  const percent = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
+  const passed = percent >= 70;
+
+  const { data: attendance } = await client
+    .from("session_attendance")
+    .select("attendance_id")
+    .eq("session_id", quizSessionId)
+    .eq("student_id", studentId)
+    .maybeSingle();
 
   const resultBox = document.getElementById("resultBox");
   resultBox.style.display = "block";
   resultBox.innerHTML = `
     <div class="table-card" style="text-align:center; padding:50px;">
-      <i class="fa-solid fa-circle-check" style="font-size:50px; color:#34C759; margin-bottom:20px;"></i>
+      <i class="fa-solid fa-circle-check" style="font-size:50px; color:${passed ? "#34C759" : "#F59E0B"}; margin-bottom:20px;"></i>
       <h2 style="margin-bottom:10px;">Quiz Submitted</h2>
       <p style="color:#6B7280;">${title}</p>
-      <p style="font-size:32px; font-weight:700; color:#34C759; margin-top:20px;">${score} points</p>
+      <p style="font-size:32px; font-weight:700; color:${passed ? "#34C759" : "#F59E0B"}; margin-top:20px;">${score}/${totalPoints} (${percent}%)</p>
+      <p style="margin-top:16px; color:#6B7280;">
+        ${attendance ? "✅ Attendance marked for this session." : "Attendance was not marked (either the window closed or the score was below 70%)."}
+      </p>
     </div>
   `;
 
