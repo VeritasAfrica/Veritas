@@ -208,6 +208,24 @@ async function loadQuizAction() {
     return;
   }
 
+  const { data: sessionTiming } = await client
+    .from("course_sessions")
+    .select("scheduled_date, start_time, end_time")
+    .eq("session_id", sessionId)
+    .single();
+
+  const timing = getSessionTiming(sessionTiming || {});
+
+  if (!timing.started) {
+    box.innerHTML = `
+      <div class="table-card">
+        <strong>${quiz.title}</strong>
+        <p style="color:#94A3B8; margin-top:8px;">This quiz unlocks when the class starts.</p>
+      </div>
+    `;
+    return;
+  }
+
   const { data: { user } } = await client.auth.getUser();
   const { data: student } = await client
     .from("students")
@@ -232,8 +250,8 @@ async function loadQuizAction() {
     .eq("student_id", student.student_id)
     .maybeSingle();
 
-  const timing = getSessionTiming(currentSession);
-  const withinWindow = timing.windowEnd ? new Date() <= timing.windowEnd : false;
+  const windowTiming = getSessionTiming(sessionTiming || {});
+  const withinWindow = windowTiming.windowEnd ? new Date() <= windowTiming.windowEnd : false;
 
   if (!latest) {
 

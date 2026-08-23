@@ -47,6 +47,27 @@ async function loadQuiz() {
 
   quizSessionId = quiz.session_id;
 
+  const { data: sessionInfo } = await client
+    .from("course_sessions")
+    .select("scheduled_date, start_time")
+    .eq("session_id", quiz.session_id)
+    .single();
+
+  if (sessionInfo?.scheduled_date && sessionInfo?.start_time) {
+    const startDateTime = new Date(`${sessionInfo.scheduled_date}T${sessionInfo.start_time}`);
+
+    if (new Date() < startDateTime) {
+      document.getElementById("quizForm").style.display = "none";
+      document.querySelector(".topbar h2").textContent = quiz.title;
+      document.getElementById("quizDescription").innerHTML =
+        `<div class="table-card" style="text-align:center; padding:40px;">
+           <i class="fa-solid fa-lock" style="font-size:36px; color:#94A3B8; margin-bottom:16px;"></i>
+           <p>This quiz unlocks when the class starts, at ${startDateTime.toLocaleString()}.</p>
+         </div>`;
+      return;
+    }
+  }
+
   const { data: existing } = await client
     .from("quiz_submissions")
     .select("score, attempt_number")
