@@ -92,12 +92,12 @@ async function loadGroups() {
 /* ==========================
 Create Group
 ========================== */
-
 document.getElementById("createGroupForm").addEventListener("submit", async (e) => {
 
   e.preventDefault();
 
   const cohort = document.getElementById("newGroupCohort").value.trim();
+  const year = document.getElementById("newGroupYear").value.trim();
   const groupNumber = document.getElementById("newGroupNumber").value.trim();
   const link = document.getElementById("newGroupLink").value.trim();
 
@@ -105,6 +105,7 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
     .from("student_groups")
     .insert({
       cohort,
+      year,
       group_number: groupNumber,
       whatsapp_link: link || null
     });
@@ -118,6 +119,7 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
   loadGroups();
 
 });
+
 
 
 loadGroups();
