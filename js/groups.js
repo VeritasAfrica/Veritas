@@ -89,4 +89,35 @@ async function loadGroups() {
 
 }
 
+/* ==========================
+Create Group
+========================== */
+
+document.getElementById("createGroupForm").addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+
+  const cohort = document.getElementById("newGroupCohort").value.trim();
+  const groupNumber = document.getElementById("newGroupNumber").value.trim();
+  const link = document.getElementById("newGroupLink").value.trim();
+
+  const { error } = await client
+    .from("student_groups")
+    .insert({
+      cohort,
+      group_number: groupNumber,
+      whatsapp_link: link || null
+    });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById("createGroupForm").reset();
+  loadGroups();
+
+});
+
+
 loadGroups();
