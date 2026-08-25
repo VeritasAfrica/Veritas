@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Results | Purpose Institute</title>
+  <title>Quiz History | Purpose Institute</title>
 
   <link rel="stylesheet" href="css/admin-shell.css">
   <link rel="stylesheet" href="css/admin.css">
@@ -25,14 +25,17 @@
 
       <div id="topbarMount"></div>
 
+      <h2 id="studentName" style="margin-bottom: 4px;">Loading...</h2>
+      <p class="page-subtitle" id="studentMatric" style="color: #64748B; margin-bottom: 25px;"></p>
+
       <section class="stats">
 
         <div class="card green">
           <div>
-            <h4>Total Submissions</h4>
-            <h2 id="totalSubmissions">0</h2>
+            <h4>Quizzes Taken</h4>
+            <h2 id="quizCount">0</h2>
           </div>
-          <i class="fa-solid fa-file-circle-check"></i>
+          <i class="fa-solid fa-clipboard-question"></i>
         </div>
 
         <div class="card blue">
@@ -45,29 +48,34 @@
 
         <div class="card orange">
           <div>
-            <h4>Quizzes Given</h4>
-            <h2 id="quizCount">0</h2>
+            <h4>Sessions Attended</h4>
+            <h2 id="attendanceCount">0</h2>
           </div>
-          <i class="fa-solid fa-clipboard-question"></i>
+          <i class="fa-solid fa-user-check"></i>
         </div>
 
       </section>
 
       <div class="table-card">
-        <div class="filters-row">
-          <input type="text" id="searchResult" placeholder="Search student or quiz...">
-
-          <select id="filterCourse">
-            <option value="">All Courses</option>
-          </select>
-
-          <select id="filterGroup">
-            <option value="">All Groups</option>
-          </select>
+        <div class="card-title">
+          <h3>Quiz Results</h3>
         </div>
-      </div>
 
-      <div id="resultSections"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Session</th>
+              <th>Quiz</th>
+              <th>Attempt</th>
+              <th>Score</th>
+              <th>Submitted</th>
+              <th>Attendance</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTable"></tbody>
+        </table>
+      </div>
 
     </main>
 
@@ -75,16 +83,15 @@
 
   <script>
     window.ADMIN_PAGE = {
-      active: "results",
-      title: "Results",
-      subtitle: "Latest quiz attempt per student, grouped by session"
+      active: "students",
+      title: "Quiz History"
     };
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/admin-shell.js"></script>
-  <script src="js/results.js"></script>
+  <script src="js/student-quiz-history.js"></script>
 
 </body>
 </html>

@@ -19,7 +19,7 @@ async function loadResults() {
     .eq("auth_user_id", user.id)
     .single();
 
-  const { data: submissions, error } = await client
+  const { data: allSubmissions, error } = await client
     .from("quiz_submissions")
     .select(`
       *,
@@ -39,8 +39,15 @@ async function loadResults() {
     return;
   }
 
+  // Keep only the latest attempt per quiz — it overrides the earlier one.
+  const latestByQuiz = new Map();
+  (allSubmissions || []).forEach(s => {
+    if (!latestByQuiz.has(s.quiz_id)) latestByQuiz.set(s.quiz_id, s);
+  });
+  const submissions = [...latestByQuiz.values()];
+
   // Total possible points per quiz, for turning raw score into a %.
-  const quizIds = [...new Set(submissions.map(s => s.quiz_id))];
+  const quizIds = submissions.map(s => s.quiz_id);
   const totalsByQuiz = {};
 
   for (const quizId of quizIds) {

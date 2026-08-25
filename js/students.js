@@ -138,11 +138,22 @@ document.getElementById("assignGroups").addEventListener("click", async () => {
 
   if (!confirm("Assign groups of 20 for all students without one?")) return;
 
-  const year = new Date().getFullYear().toString().slice(-2);
+  const { data: settings } = await client
+    .from("app_settings")
+    .select("setting_key, setting_value")
+    .in("setting_key", ["current_cohort", "current_year"]);
+
+  const cohort = settings?.find(s => s.setting_key === "current_cohort")?.setting_value;
+  const year = settings?.find(s => s.setting_key === "current_year")?.setting_value;
+
+  if (!cohort || !year) {
+    alert("current_cohort / current_year isn't set in app_settings yet — set those first.");
+    return;
+  }
 
   const { error } = await client.rpc("assign_student_groups", {
     p_year: year,
-    p_cohort: "01"
+    p_cohort: cohort
   });
 
   if (error) {

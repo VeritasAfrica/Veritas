@@ -1,6 +1,8 @@
 /*
 =========================================
 Purpose Institute MY ATTENDANCE
+Sourced from session_attendance — auto-
+marked when a student passes their quiz.
 =========================================
 */
 
@@ -21,39 +23,32 @@ async function loadAttendance() {
 
   const studentId = student.student_id;
 
-  // All attendance windows ever opened, across Published courses —
-  // this is the "sessions held" side of the rate calculation.
-  const { data: allWindows, error: windowsError } = await client
-    .from("attendance_sessions")
+  // Every session from a Published course that has already started —
+  // these are the sessions attendance was actually possible for.
+  const { data: allSessions, error: sessionsError } = await client
+    .from("course_sessions")
     .select(`
-      attendance_id,
-      course_sessions(
-        session_id,
-        title,
-        courses(course_id, course_code, course_title, status)
-      )
+      session_id, title, scheduled_date, start_time,
+      courses(course_id, course_code, course_title, status)
     `);
 
-  if (windowsError) {
-    console.error(windowsError);
+  if (sessionsError) {
+    console.error(sessionsError);
     return;
   }
 
-  const heldWindows = allWindows.filter(w => w.course_sessions?.courses?.status === "Published");
+  const now = new Date();
 
-  // This student's own attendance records — the "attended" side.
+  const heldSessions = (allSessions || []).filter(s => {
+    if (s.courses?.status !== "Published") return false;
+    if (!s.scheduled_date || !s.start_time) return false;
+    return new Date(`${s.scheduled_date}T${s.start_time}`) <= now;
+  });
+
+  // This student's own attendance records
   const { data: myRecords, error: recordsError } = await client
-    .from("attendance_records")
-    .select(`
-      attendance_id,
-      marked_at,
-      attendance_sessions(
-        course_sessions(
-          title,
-          courses(course_id, course_code, course_title)
-        )
-      )
-    `)
+    .from("session_attendance")
+    .select("session_id, marked_at")
     .eq("student_id", studentId)
     .order("marked_at", { ascending: false });
 
@@ -62,7 +57,7 @@ async function loadAttendance() {
     return;
   }
 
-  const attendedIds = new Set(myRecords.map(r => r.attendance_id));
+  const attendedSessionIds = new Set(myRecords.map(r => r.session_id));
 
   /* ==========================
   Per-Course Breakdown
@@ -70,21 +65,17 @@ async function loadAttendance() {
 
   const byCourse = {};
 
-  heldWindows.forEach(w => {
-    const course = w.course_sessions.courses;
+  heldSessions.forEach(s => {
+    const course = s.courses;
     if (!course) return;
 
     if (!byCourse[course.course_id]) {
-      byCourse[course.course_id] = {
-        code: course.course_code,
-        held: 0,
-        attended: 0
-      };
+      byCourse[course.course_id] = { code: course.course_code, held: 0, attended: 0 };
     }
 
     byCourse[course.course_id].held++;
 
-    if (attendedIds.has(w.attendance_id)) {
+    if (attendedSessionIds.has(s.session_id)) {
       byCourse[course.course_id].attended++;
     }
   });
@@ -116,8 +107,8 @@ async function loadAttendance() {
   Overall Stats
   ========================== */
 
-  const totalHeld = heldWindows.length;
-  const totalAttended = heldWindows.filter(w => attendedIds.has(w.attendance_id)).length;
+  const totalHeld = heldSessions.length;
+  const totalAttended = heldSessions.filter(s => attendedSessionIds.has(s.session_id)).length;
   const overallRate = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 100) : 0;
 
   document.getElementById("overallRate").textContent = `${overallRate}%`;
@@ -138,14 +129,17 @@ async function loadAttendance() {
     return;
   }
 
+  const sessionsById = {};
+  allSessions.forEach(s => { sessionsById[s.session_id] = s; });
+
   myRecords.forEach(r => {
-    const course = r.attendance_sessions?.course_sessions?.courses;
-    const sessionTitle = r.attendance_sessions?.course_sessions?.title || "-";
+    const session = sessionsById[r.session_id];
+    const course = session?.courses;
 
     logTable.innerHTML += `
       <tr>
         <td>${course ? course.course_code : "-"}</td>
-        <td>${sessionTitle}</td>
+        <td>${session?.title || "-"}</td>
         <td>${new Date(r.marked_at).toLocaleString()}</td>
       </tr>
     `;

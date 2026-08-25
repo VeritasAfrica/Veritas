@@ -53,7 +53,16 @@ async function loadResults() {
 
   const attendedIds = new Set((attendanceRows || []).map(a => a.student_id));
 
-  allRows = submissions.map(s => ({
+  // Keep only each student's latest attempt — the newer one
+  // overrides the earlier one, matching how attendance already works.
+  const latestByStudent = new Map();
+  submissions
+    .sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at))
+    .forEach(s => {
+      if (!latestByStudent.has(s.student_id)) latestByStudent.set(s.student_id, s);
+    });
+
+  allRows = [...latestByStudent.values()].map(s => ({
     ...s,
     totalPoints,
     attended: attendedIds.has(s.student_id)

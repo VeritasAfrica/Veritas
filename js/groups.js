@@ -4,6 +4,21 @@ Purpose Institute GROUPS (ADMIN)
 =========================================
 */
 
+let currentYear = "";
+
+async function loadCurrentYear() {
+
+  const { data } = await client
+    .from("app_settings")
+    .select("setting_value")
+    .eq("setting_key", "current_year")
+    .maybeSingle();
+
+  currentYear = data?.setting_value || "";
+  document.getElementById("newGroupYear").value = currentYear;
+
+}
+
 async function loadGroups() {
 
   const { data: groups, error } = await client
@@ -97,7 +112,6 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
   e.preventDefault();
 
   const cohort = document.getElementById("newGroupCohort").value.trim();
-  const year = document.getElementById("newGroupYear").value.trim();
   const groupNumber = document.getElementById("newGroupNumber").value.trim();
   const link = document.getElementById("newGroupLink").value.trim();
 
@@ -105,8 +119,8 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
     .from("student_groups")
     .insert({
       cohort,
-      year,
-      group_number: groupNumber,
+      year: currentYear,
+      group_number: parseInt(groupNumber),
       whatsapp_link: link || null
     });
 
@@ -116,10 +130,10 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
   }
 
   document.getElementById("createGroupForm").reset();
+  document.getElementById("newGroupYear").value = currentYear;
   loadGroups();
 
 });
 
-
-
+loadCurrentYear();
 loadGroups();
