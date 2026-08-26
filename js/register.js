@@ -25,7 +25,7 @@ middleName:capitalize(document.getElementById("middle_name").value),
 lastName:capitalize(document.getElementById("last_name").value),
 email:document.getElementById("email").value.trim().toLowerCase(),
 phone:document.getElementById("phone").value.trim(),
-country:document.getElementById("country").value,
+country:document.getElementById("country").value.trim(),
 password:document.getElementById("password").value,
 confirm:document.getElementById("confirm_password").value,
 /*
@@ -46,6 +46,12 @@ return;
 if(!validatePhone(student.phone)){
 message.style.color="red";
 message.innerHTML="Invalid phone number.";
+return;
+}
+
+if(!allCountries.includes(student.country)){
+message.style.color="red";
+message.innerHTML="Please select a valid country from the list.";
 return;
 }
 
@@ -124,4 +130,4 @@ message.innerHTML = "Account created successfully. Redirecting to login...";
 setTimeout(() => {
     window.location.href = "login.html";
 }, 1500);
-}); 
+});
