@@ -159,7 +159,7 @@ Push Notifications
 ------------------------------*/
 
 // Paste your VAPID PUBLIC key here (from `npx web-push generate-vapid-keys`)
-const VAPID_PUBLIC_KEY = "BAPIN3CIeEqQfJYWybqcOUf3U5FDXRnnNHcMzRHVQQ0fgQLbo5crp_sLMZNAnQ2mCwWpdfWs6DLrsPUzb4YR_8E";
+const VAPID_PUBLIC_KEY = "BKCNNHoW5ukOodNVFSRGvtDlLbtDS6YVFpO6_y09zid0lsC-NLRVpto4glsPgMsxdOtnkQEcHd9tYRsOGlMr-YA";
 
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
