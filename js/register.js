@@ -94,6 +94,14 @@ const fullName =
 student.middleName ? student.middleName + " " : ""
 }${student.lastName}`;
 
+const { data: settings } = await client
+    .from("app_settings")
+    .select("setting_key, setting_value")
+    .in("setting_key", ["current_cohort", "current_year"]);
+
+const currentCohort = settings?.find(s => s.setting_key === "current_cohort")?.setting_value || "01";
+const currentYear = settings?.find(s => s.setting_key === "current_year")?.setting_value || new Date().getFullYear().toString();
+
 const { error: insertError } = await client
 .from("students")
 .insert({
@@ -105,8 +113,8 @@ const { error: insertError } = await client
     email: student.email,
     phone: student.phone,
     country: student.country,
-    admission_year: new Date().getFullYear().toString(),
-    cohort: "01",
+    admission_year: currentYear,
+    cohort: currentCohort,
     matric_number: null
 });
 

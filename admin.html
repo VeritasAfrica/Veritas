@@ -34,21 +34,11 @@
           <div>
             <h4>Total Students</h4>
             <h2 id="studentCount">0</h2>
-            <p>+12% this month</p>
           </div>
           <i class="fa-solid fa-user-graduate"></i>
         </div>
 
         <div class="card blue">
-          <div>
-            <h4>Lecturers</h4>
-            <h2 id="lecturerCount">0</h2>
-            <p>Active Staff</p>
-          </div>
-          <i class="fa-solid fa-chalkboard-user"></i>
-        </div>
-
-        <div class="card orange">
           <div>
             <h4>Courses</h4>
             <h2 id="courseCount">0</h2>
@@ -57,35 +47,25 @@
           <i class="fa-solid fa-book"></i>
         </div>
 
-        <div class="card purple">
+        <div class="card orange">
           <div>
             <h4>Departments</h4>
             <h2 id="departmentCount">0</h2>
-            <p>Faculties</p>
+            <p>With active courses</p>
           </div>
           <i class="fa-solid fa-building"></i>
         </div>
 
-      </section>
-
-      <!-- Charts -->
-      <section class="chart-grid">
-
-        <div class="chart-card">
-          <div class="card-title">
-            <h3>Attendance Trend</h3>
+        <div class="card purple">
+          <div>
+            <h4>Attendance Records</h4>
+            <h2 id="attendanceTotal">0</h2>
+            <p>All time</p>
           </div>
-          <canvas id="attendanceChart"></canvas>
+          <i class="fa-solid fa-user-check"></i>
         </div>
 
-        <div class="chart-card">
-          <div class="card-title">
-            <h3>Student Distribution</h3>
-          </div>
-          <canvas id="departmentChart"></canvas>
-        </div>
-
-      </section>
+      </section> 
 
       <!-- Bottom Section -->
       <section class="bottom-grid">
@@ -110,47 +90,32 @@
           </table>
         </div>
 
-        <!-- Pending Actions -->
+        <!-- To-Do List -->
         <div class="pending-card">
           <div class="card-title">
-            <h3>Pending Actions</h3>
+            <h3>To-Do</h3>
           </div>
 
-          <div class="pending-list">
+          <div class="pending-list" id="todoList"></div>
+        </div>
 
-            <div class="pending-item">
-              <div>
-                <i class="fa-solid fa-id-card"></i>
-                <span>Students Awaiting Matric Number</span>
-              </div>
-              <span class="badge">15</span>
-            </div>
+      </section>
 
-            <div class="pending-item">
-              <div>
-                <i class="fa-solid fa-user-plus"></i>
-                <span>Lecturer Registrations</span>
-              </div>
-              <span class="badge">3</span>
-            </div>
+      <!-- Charts -->
+      <section class="chart-grid">
 
-            <div class="pending-item">
-              <div>
-                <i class="fa-solid fa-book"></i>
-                <span>Course Approval Requests</span>
-              </div>
-              <span class="badge">5</span>
-            </div>
-
-            <div class="pending-item">
-              <div>
-                <i class="fa-solid fa-building"></i>
-                <span>Department Requests</span>
-              </div>
-              <span class="badge">2</span>
-            </div>
-
+        <div class="chart-card">
+          <div class="card-title">
+            <h3>Attendance Trend (Last 7 Days)</h3>
           </div>
+          <canvas id="attendanceChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <div class="card-title">
+            <h3>Student Distribution by Department</h3>
+          </div>
+          <canvas id="departmentChart"></canvas>
         </div>
 
       </section>
@@ -158,29 +123,19 @@
       <!-- Quick Actions -->
       <section class="quick-actions">
 
-        <button>
-          <i class="fa-solid fa-user-plus"></i>
-          <span>Add Student</span>
-        </button>
-
         <button id="generateMatric">
           <i class="fa-solid fa-id-card"></i>
           <span>Generate Matric Numbers</span>
         </button>
 
-        <button>
+        <button id="assignGroupsBtn">
+          <i class="fa-solid fa-users"></i>
+          <span>Assign Groups</span>
+        </button>
+
+        <button id="createCourseBtn">
           <i class="fa-solid fa-book"></i>
           <span>Create Course</span>
-        </button>
-
-        <button>
-          <i class="fa-solid fa-bullhorn"></i>
-          <span>Announcement</span>
-        </button>
-
-        <button>
-          <i class="fa-solid fa-user-check"></i>
-          <span>Assign Lecturer</span>
         </button>
 
       </section>

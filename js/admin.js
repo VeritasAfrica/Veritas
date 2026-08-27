@@ -5,28 +5,32 @@ Purpose Institute ADMIN DASHBOARD
 */
 
 /* ==========================
-Assign Matric
-========================== */
-
-async function assignMatric(id) {
-  alert("Matric Generator will be connected here.");
-  /*
-    Later we'll automatically generate
-    VAL/25/CSC/001
-    and update Supabase.
-  */
-}
-
-/* ==========================
 Generate Matric Numbers
 ========================== */
 
 async function generateMatricNumbers() {
-  const year = new Date().getFullYear().toString().slice(-2);
+
+  const { data: settings } = await client
+    .from("app_settings")
+    .select("setting_key, setting_value")
+    .in("setting_key", ["current_cohort", "current_year"]);
+
+  const cohort = settings?.find(s => s.setting_key === "current_cohort")?.setting_value;
+  const yearFull = settings?.find(s => s.setting_key === "current_year")?.setting_value;
+
+  if (!cohort || !yearFull) {
+    alert("current_cohort / current_year isn't set in app_settings yet.");
+    return;
+  }
+
+  // Matric numbers use a short 2-digit year (e.g. "26"), unlike the
+  // long admission_year format ("2026/2027") — pull it from the first
+  // 4 digits of the shared year setting rather than hardcoding it.
+  const year = yearFull.slice(2, 4);
 
   const { error } = await client.rpc("generate_matric_numbers", {
     p_year: year,
-    p_cohort: "01"
+    p_cohort: cohort
   });
 
   if (error) {
@@ -36,6 +40,41 @@ async function generateMatricNumbers() {
 
   alert("Matric numbers generated.");
   loadDashboard();
+
+}
+
+/* ==========================
+Assign Groups
+========================== */
+
+async function assignGroups() {
+
+  const { data: settings } = await client
+    .from("app_settings")
+    .select("setting_key, setting_value")
+    .in("setting_key", ["current_cohort", "current_year"]);
+
+  const cohort = settings?.find(s => s.setting_key === "current_cohort")?.setting_value;
+  const year = settings?.find(s => s.setting_key === "current_year")?.setting_value;
+
+  if (!cohort || !year) {
+    alert("current_cohort / current_year isn't set in app_settings yet.");
+    return;
+  }
+
+  const { error } = await client.rpc("assign_student_groups", {
+    p_year: year,
+    p_cohort: cohort
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Groups assigned. Set WhatsApp links from the Groups page.");
+  loadDashboard();
+
 }
 
 /* ==========================
@@ -43,41 +82,44 @@ Load Dashboard
 ========================== */
 
 async function loadDashboard() {
-  /* ---------- Students ---------- */
+
   const { data: students = [] } = await client
     .from("students")
     .select("*")
-    .order("registered_at", { ascending: false });
+    .eq("role", "student")
+    .order("student_id", { ascending: false });
 
-  console.log("Students:", students);
-  console.log("Student count:", students?.length);
-
-  /* ---------- Lecturers ---------- 
-  const { data: lecturers = [] } = await client
-    .from("lecturers")
-    .select("*"); */
-
-  /* ---------- Courses ---------- */
   const { data: courses = [] } = await client
     .from("courses")
-    .select("*"); 
+    .select("*");
 
-  /* ---------- Departments ---------- 
-  const { data: departments = [] } = await client
-    .from("departments")
-    .select("*");  */
+  const { data: departmentTags = [] } = await client
+    .from("course_departments")
+    .select("department");
 
-  /* ---------- Counts ---------- */
+  const { data: attendanceRows = [] } = await client
+    .from("session_attendance")
+    .select("marked_at");
+
+  /* ---------- Stat Cards ---------- */
+
   const studentCounter = document.getElementById("studentCount");
   studentCounter.textContent = "0";
   animateValue(studentCounter, 0, students.length, 1200);
-  /* document.getElementById("lecturerCount").textContent = lecturers.length; */
+
   const courseCounter = document.getElementById("courseCount");
   courseCounter.textContent = "0";
   animateValue(courseCounter, 0, courses.length, 1200);
-  /* document.getElementById("departmentCount").textContent = departments.length; */
 
-  /* ---------- Table ---------- */
+  const activeDepartments = new Set(departmentTags.map(d => d.department)).size;
+  document.getElementById("departmentCount").textContent = activeDepartments;
+
+  const attendanceCounter = document.getElementById("attendanceTotal");
+  attendanceCounter.textContent = "0";
+  animateValue(attendanceCounter, 0, attendanceRows.length, 1200);
+
+  /* ---------- Recent Registrations Table ---------- */
+
   const table = document.getElementById("studentTable");
   table.innerHTML = "";
 
@@ -94,31 +136,98 @@ async function loadDashboard() {
           }
         </td>
         <td>
-          ${
-            student.matric_number
-              ? `<button class="view-btn">View</button>`
-              : `<button class="assign-btn" onclick="assignMatric('${student.student_id}')">Assign Matric</button>`
-          }
+          <button class="view-btn" onclick="window.location.href='student-profile.html?id=${student.student_id}'">View</button>
         </td>
       </tr>
     `;
   });
+
+  /* ---------- To-Do List (real, actionable items only) ---------- */
+
+  const awaitingMatric = students.filter(s => !s.matric_number).length;
+  const awaitingGroup = students.filter(s => !s.group_number).length;
+  const draftCourses = courses.filter(c => c.status === "Draft").length;
+
+  const todoItems = [
+    {
+      icon: "fa-id-card",
+      label: "Students Awaiting Matric Number",
+      count: awaitingMatric,
+      link: "students.html"
+    },
+    {
+      icon: "fa-users",
+      label: "Students Awaiting Group Assignment",
+      count: awaitingGroup,
+      link: "students.html"
+    },
+    {
+      icon: "fa-book",
+      label: "Draft Courses Not Yet Published",
+      count: draftCourses,
+      link: "courses.html"
+    }
+  ].filter(item => item.count > 0);
+
+  const todoList = document.getElementById("todoList");
+  todoList.innerHTML = "";
+
+  if (todoItems.length === 0) {
+    todoList.innerHTML = `<p style="color:#94A3B8; padding:10px 0;">Nothing pending — all caught up.</p>`;
+  } else {
+    todoItems.forEach(item => {
+      todoList.innerHTML += `
+        <div class="pending-item" style="cursor:pointer;" onclick="window.location.href='${item.link}'">
+          <div>
+            <i class="fa-solid ${item.icon}"></i>
+            <span>${item.label}</span>
+          </div>
+          <span class="badge">${item.count}</span>
+        </div>
+      `;
+    });
+  }
+
+  /* ---------- Charts ---------- */
+
+  renderAttendanceChart(attendanceRows);
+  renderDepartmentChart(students);
+
 }
 
 /* ==========================
-Attendance Chart
+Attendance Chart (real, last 7 days)
 ========================== */
 
-const attendanceCtx = document.getElementById("attendanceChart");
+let attendanceChartInstance = null;
 
-if (attendanceCtx) {
-  new Chart(attendanceCtx, {
+function renderAttendanceChart(attendanceRows) {
+
+  const ctx = document.getElementById("attendanceChart");
+  if (!ctx) return;
+
+  const days = [];
+  const counts = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split("T")[0];
+    const label = d.toLocaleDateString(undefined, { weekday: "short" });
+
+    days.push(label);
+    counts.push(attendanceRows.filter(a => a.marked_at.startsWith(dateStr)).length);
+  }
+
+  if (attendanceChartInstance) attendanceChartInstance.destroy();
+
+  attendanceChartInstance = new Chart(ctx, {
     type: "line",
     data: {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      labels: days,
       datasets: [{
         label: "Attendance",
-        data: [82, 91, 87, 93, 90, 95],
+        data: counts,
         borderColor: "#34C759",
         backgroundColor: "rgba(52,199,89,.12)",
         fill: true,
@@ -130,31 +239,46 @@ if (attendanceCtx) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
+      plugins: { legend: { display: false } },
       scales: {
         x: { grid: { display: false } },
-        y: { beginAtZero: true, grid: { color: "#EEF2F7" } }
+        y: { beginAtZero: true, grid: { color: "#EEF2F7" }, ticks: { precision: 0 } }
       }
     }
   });
+
 }
 
 /* ==========================
-Department Chart
+Department Chart (real, by student.department)
 ========================== */
 
-const departmentCtx = document.getElementById("departmentChart");
+let departmentChartInstance = null;
 
-if (departmentCtx) {
-  new Chart(departmentCtx, {
+function renderDepartmentChart(students) {
+
+  const ctx = document.getElementById("departmentChart");
+  if (!ctx) return;
+
+  const counts = {};
+  students.forEach(s => {
+    const dept = s.department || "All";
+    counts[dept] = (counts[dept] || 0) + 1;
+  });
+
+  const labels = Object.keys(counts);
+  const values = Object.values(counts);
+  const colors = ["#34C759", "#3B82F6", "#F59E0B", "#8B5CF6"];
+
+  if (departmentChartInstance) departmentChartInstance.destroy();
+
+  departmentChartInstance = new Chart(ctx, {
     type: "doughnut",
     data: {
-      labels: ["CSC", "Accounting", "Law", "Nursing"],
+      labels,
       datasets: [{
-        data: [38, 24, 18, 20],
-        backgroundColor: ["#34C759", "#3B82F6", "#F59E0B", "#8B5CF6"],
+        data: values,
+        backgroundColor: labels.map((_, i) => colors[i % colors.length]),
         borderWidth: 0
       }]
     },
@@ -163,13 +287,11 @@ if (departmentCtx) {
       maintainAspectRatio: false,
       cutout: "72%",
       plugins: {
-        legend: {
-          position: "bottom",
-          labels: { padding: 20, boxWidth: 14 }
-        }
+        legend: { position: "bottom", labels: { padding: 20, boxWidth: 14 } }
       }
     }
   });
+
 }
 
 /* ==========================
@@ -194,52 +316,14 @@ function animateValue(element, start, end, duration) {
 }
 
 /* ==========================
-Animate Cards
+Quick Action Buttons
 ========================== */
 
-/* window.addEventListener("load", () => {
-  document.querySelectorAll(".card h2").forEach(el => {
-    const value = parseInt(el.textContent) || 0;
-    animateValue(el, 0, value, 1200);
-  });
-}); */
-
-/* ==========================
-Mobile Sidebar
-========================== */
-
-const sidebar = document.querySelector(".sidebar");
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-
-if (menuBtn && sidebar && overlay) {
-  menuBtn.addEventListener("click", () => {
-    sidebar.classList.add("show");
-    overlay.classList.add("show");
-  });
-
-  overlay.addEventListener("click", () => {
-    sidebar.classList.remove("show");
-    overlay.classList.remove("show");
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-      sidebar.classList.remove("show");
-      overlay.classList.remove("show");
-    }
-  });
-}
-
-/* ==========================
-Generate Matric Button
-========================== */
-
-const generateBtn = document.getElementById("generateMatric");
-
-if (generateBtn) {
-  generateBtn.addEventListener("click", generateMatricNumbers);
-}
+document.getElementById("generateMatric").addEventListener("click", generateMatricNumbers);
+document.getElementById("assignGroupsBtn").addEventListener("click", assignGroups);
+document.getElementById("createCourseBtn").addEventListener("click", () => {
+  window.location.href = "create-course.html";
+});
 
 /* ==========================
 Start
