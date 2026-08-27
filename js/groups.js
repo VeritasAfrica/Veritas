@@ -135,5 +135,41 @@ document.getElementById("createGroupForm").addEventListener("submit", async (e) 
 
 });
 
+/* ==========================
+General Group Link
+========================== */
+
+async function loadGeneralGroup() {
+
+  const { data } = await client
+    .from("app_settings")
+    .select("setting_value")
+    .eq("setting_key", "general_group_link")
+    .maybeSingle();
+
+  document.getElementById("generalGroupLink").value = data?.setting_value || "";
+
+}
+
+document.getElementById("generalGroupForm").addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+
+  const link = document.getElementById("generalGroupLink").value.trim();
+
+  const { error } = await client
+    .from("app_settings")
+    .upsert({ setting_key: "general_group_link", setting_value: link || null }, { onConflict: "setting_key" });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("General group link saved.");
+
+});
+
+loadGeneralGroup();
 loadCurrentYear();
 loadGroups();
