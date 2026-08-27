@@ -236,6 +236,33 @@ document.getElementById("enableNotifBtn").addEventListener("click", async () => 
 });
 
 /* -----------------------------
+General Group
+------------------------------*/
+
+async function loadGeneralGroup() {
+
+  const { data } = await client
+    .from("app_settings")
+    .select("setting_value")
+    .eq("setting_key", "general_group_link")
+    .maybeSingle();
+
+  const link = data?.setting_value;
+  if (!link) return; // stays hidden if admin hasn't set one yet
+
+  const panel = document.getElementById("generalGroupPanel");
+  const content = document.getElementById("generalGroupContent");
+
+  panel.style.display = "block";
+  content.innerHTML = `
+    <a href="${link}" target="_blank" class="group-link-btn">
+      <i class="fa-brands fa-whatsapp"></i> Join General Group
+    </a>
+  `;
+
+}
+
+/* -----------------------------
 Start
 ------------------------------*/
 
@@ -243,3 +270,4 @@ loadStudent();
 loadSchedule();
 loadAnnouncements();
 checkNotificationStatus();
+loadGeneralGroup();
