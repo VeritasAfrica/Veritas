@@ -91,7 +91,21 @@
       <!-- Attendance -->
       <div class="table-card" style="margin-top: 30px;">
         <div class="card-title">
-          <h3>Attendance (auto-marked via quiz)</h3>
+          <h3>Attendance</h3>
+        </div>
+
+        <!-- Manual override, for students who couldn't make the quiz
+             window (e.g. work commitments) -->
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #EEF2F7;">
+          <div style="flex:1; min-width:220px;">
+            <label style="display:block; font-size:13px; color:#64748B; margin-bottom:6px;">Mark a student present manually</label>
+            <select id="manualAttendanceSelect" style="width:100%; padding:10px 14px; border:1px solid #E2E8F0; border-radius:10px; font-family:'Poppins',sans-serif;">
+              <option value="">Select student...</option>
+            </select>
+          </div>
+          <button id="markManualBtn" class="assign-btn">
+            <i class="fa-solid fa-plus"></i> Mark Present
+          </button>
         </div>
 
         <table>
@@ -99,6 +113,7 @@
             <tr>
               <th>Student</th>
               <th>Matric Number</th>
+              <th>Method</th>
               <th>Marked At</th>
             </tr>
           </thead>
