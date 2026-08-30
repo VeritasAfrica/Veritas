@@ -35,6 +35,7 @@ BEFORE this script loads, e.g.:
     { key: "courses",     label: "Courses",     icon: "fa-book",                 href: "courses.html" },
     { key: "attendance",  label: "Attendance",  icon: "fa-calendar-check",       href: "attendance.html" },
     { key: "results",     label: "Results",     icon: "fa-square-poll-vertical", href: "results.html" },
+    { key: "leaderboard", label: "Leaderboard", icon: "fa-trophy",               href: "leaderboard.html" },
     { key: "announcements", label: "Announcements", icon: "fa-bullhorn",        href: "announcements.html" },
     { key: "settings",    label: "Settings",    icon: "fa-gear",                 href: "settings.html" }
   ];

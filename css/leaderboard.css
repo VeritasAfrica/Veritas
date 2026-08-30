@@ -1,0 +1,19 @@
+#leaderboardTable tr:nth-child(1) td {
+  background: linear-gradient(90deg, #FFF9E6, transparent);
+}
+
+#leaderboardTable tr:nth-child(2) td {
+  background: linear-gradient(90deg, #F5F5F5, transparent);
+}
+
+#leaderboardTable tr:nth-child(3) td {
+  background: linear-gradient(90deg, #FBE9DD, transparent);
+}
+
+#filterScope, #filterCourse, #filterSession, #filterGroup, #weekPicker, #monthPicker {
+  padding: 10px 14px;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/results.css">
+  <link rel="stylesheet" href="css/leaderboard.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card" style="margin-bottom: 25px;">
+
+        <div class="filters-row" style="flex-wrap: wrap;">
+
+          <select id="filterScope">
+            <option value="all">All Time</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+          </select>
+
+          <input type="week" id="weekPicker" style="display:none;">
+          <input type="month" id="monthPicker" style="display:none;">
+
+          <select id="filterCourse">
+            <option value="">All Courses</option>
+          </select>
+
+          <select id="filterSession" disabled>
+            <option value="">All Sessions</option>
+          </select>
+
+          <select id="filterGroup">
+            <option value="">All Groups</option>
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Leaderboard</h3>
+          <span id="scopeLabel" style="color:#64748B; font-size:14px;"></span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Student</th>
+              <th>Group</th>
+              <th>Quizzes Taken</th>
+              <th>Avg Score</th>
+              <th>Sessions Attended</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "leaderboard",
+      title: "Leaderboard",
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/leaderboard.js"></script>
+
+</body>
+</html>

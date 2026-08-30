@@ -33,6 +33,7 @@ BEFORE this script loads, e.g.:
     { key: "schedule",      label: "Schedule",       icon: "fa-calendar-days",     href: "student-schedule.html" },
     { key: "attendance",    label: "Attendance",     icon: "fa-calendar-check",    href: "student-attendance.html" },
     { key: "results",       label: "Results",        icon: "fa-chart-column",      href: "student-results.html" },
+    { key: "leaderboard",   label: "Leaderboard",    icon: "fa-trophy",            href: "student-leaderboard.html" },
     { key: "announcements", label: "Announcements",  icon: "fa-bullhorn",          href: "student-announcements.html" },
     { key: "profile",       label: "My Profile",     icon: "fa-user",              href: "profile.html" }
   ];
