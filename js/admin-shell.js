@@ -37,6 +37,7 @@ BEFORE this script loads, e.g.:
     { key: "results",     label: "Results",     icon: "fa-square-poll-vertical", href: "results.html" },
     { key: "leaderboard", label: "Leaderboard", icon: "fa-trophy",               href: "leaderboard.html" },
     { key: "announcements", label: "Announcements", icon: "fa-bullhorn",        href: "announcements.html" },
+    { key: "shop", label: "Shop", icon: "fa-store", href: "shop-admin.html" },
     { key: "settings",    label: "Settings",    icon: "fa-gear",                 href: "settings.html" }
   ];
 

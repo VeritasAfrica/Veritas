@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/student-shell.css">
+  <link rel="stylesheet" href="css/student-portal.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+
+      <div class="search-box">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="searchProduct" placeholder="Search products...">
+      </div>
+
+      <div class="cat-tabs" id="catTabs">
+        <button class="active" data-cat="">All</button>
+        <button data-cat="Merch">Merch</button>
+        <button data-cat="Courses & Ebooks">Courses & Ebooks</button>
+        <button data-cat="Tools & Software">Tools & Software</button>
+        <button data-cat="Partner Deals">Partner Deals</button>
+      </div>
+
+      <div class="grid" id="productGrid"></div>
+
+      <p class="footnote">Purpose Institute isn't responsible for third-party purchases — always review a vendor's own site before buying.</p>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.STUDENT_PAGE = {
+      active: "shop",
+      title: "Shop"
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/student-shell.js"></script>
+  <script src="js/shop.js"></script>
+
+</body>
+</html>

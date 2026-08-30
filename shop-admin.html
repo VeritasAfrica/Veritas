@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | Purpose Institute</title>
+
+  <link rel="stylesheet" href="css/admin-shell.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/create-course.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div id="sidebarMount"></div>
+
+    <main class="main">
+
+      <div id="topbarMount"></div>
+
+      <div class="table-card" style="margin-bottom: 25px;">
+        <div class="card-title">
+          <h3 id="formTitle">Add Product</h3>
+        </div>
+
+        <form id="productForm">
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" id="title" required>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" id="imageFile" accept="image/*">
+            <div id="imagePreviewBox" style="margin-top:10px; display:none;">
+              <img id="imagePreview" style="max-width:180px; border-radius:12px; display:block;">
+            </div>
+          </div>
+
+          <div style="display:flex; gap:20px;">
+            <div class="form-group" style="flex:1;">
+              <label>Price <span class="optional">(free text, e.g. "₦8,500")</span></label>
+              <input type="text" id="price" value="₦">
+            </div>
+
+            <div class="form-group" style="flex:1;">
+              <label>Category</label>
+              <select id="category">
+                <option>Merch</option>
+                <option>Courses & Ebooks</option>
+                <option>Tools & Software</option>
+                <option>Partner Deals</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:20px;">
+            <div class="form-group" style="flex:1;">
+              <label>Vendor Name</label>
+              <input type="text" id="vendorName">
+            </div>
+
+            <div class="form-group" style="flex:1;">
+              <label>Vendor URL <span class="optional">(where Buy Now leads)</span></label>
+              <input type="url" id="vendorUrl" required placeholder="https://...">
+            </div>
+          </div>
+
+          <div style="display:flex; gap:30px; align-items:center; margin:15px 0;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:14px;">
+              <input type="checkbox" id="isVerified"> Verified Partner
+            </label>
+
+            <label style="display:flex; align-items:center; gap:8px; font-size:14px;">
+              <span>Status:</span>
+              <select id="status" style="padding:6px 10px; border-radius:8px; border:1px solid #E2E8F0;">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="message" style="margin: 15px 0; font-weight: 600;"></div>
+
+          <div style="display:flex; gap:12px;">
+            <button type="submit" id="saveBtn" class="assign-btn">Save Product</button>
+            <button type="button" id="cancelEditBtn" class="view-btn" style="display:none;">Cancel Edit</button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="card-title">
+          <h3>Products</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Clicks</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    window.ADMIN_PAGE = {
+      active: "shop",
+      title: "Shop",
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin-shell.js"></script>
+  <script src="js/shop-admin.js"></script>
+
+</body>
+</html>
