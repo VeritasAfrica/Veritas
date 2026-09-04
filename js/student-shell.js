@@ -177,7 +177,7 @@ BEFORE this script loads, e.g.:
 
     const { data } = await client
       .from("students")
-      .select("first_name, last_name, is_restricted")
+      .select("first_name, last_name, is_restricted, avatar_url")
       .eq("auth_user_id", user.id)
       .single();
 
@@ -189,8 +189,17 @@ BEFORE this script loads, e.g.:
     }
 
     if (data) {
-      const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-      document.getElementById("topAvatar").textContent = initials;
+      const avatarEl = document.getElementById("topAvatar");
+
+      if (data.avatar_url) {
+        avatarEl.style.backgroundImage = `url(${data.avatar_url})`;
+        avatarEl.style.backgroundSize = "cover";
+        avatarEl.style.backgroundPosition = "center";
+        avatarEl.textContent = "";
+      } else {
+        const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
+        avatarEl.textContent = initials;
+      }
     }
 
   }

@@ -93,11 +93,21 @@ async function loadStudent() {
     document.getElementById("groupNumber").textContent =
         student.group_number || "Not Assigned";
 
-    document.getElementById("avatar").textContent =
-        (
-            student.first_name.charAt(0) +
-            student.last_name.charAt(0)
-        ).toUpperCase();
+    const avatarEl = document.getElementById("avatar");
+    const initials = (
+        student.first_name.charAt(0) +
+        student.last_name.charAt(0)
+    ).toUpperCase();
+
+    if (student.avatar_url) {
+        avatarEl.style.backgroundImage = `url(${student.avatar_url})`;
+        avatarEl.style.backgroundSize = "cover";
+        avatarEl.style.backgroundPosition = "center";
+        avatarEl.textContent = "";
+    } else {
+        avatarEl.style.backgroundImage = "";
+        avatarEl.textContent = initials;
+    }
 
 }
 

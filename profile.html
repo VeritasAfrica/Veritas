@@ -14,7 +14,6 @@
 
 <body>
 
-<div class="overlay" id="overlay"></div>
 <div class="wrapper">
     <!-- Sidebar -->
     <div id="sidebarMount"></div>
@@ -30,6 +29,11 @@
                 <div class="profile-avatar" id="profileAvatar">
                     SB
                 </div>
+
+                <input type="file" id="avatarFile" accept="image/*" style="display:none;">
+                <button id="changePhotoBtn" style="margin-top:10px; background:none; border:1px solid var(--primary); color:var(--primary); padding:8px 16px; border-radius:20px; font-family:'Poppins',sans-serif; font-size:13px; font-weight:600; cursor:pointer;">
+                    <i class="fa-solid fa-camera"></i> Change Photo
+                </button>
 
                 <h2 id="fullName">
                     Loading...
@@ -77,8 +81,8 @@
 </div>
 <script>
     window.STUDENT_PAGE = {
-        active: "profile",       // ← this page's key, see table below
-        title: "My Profile",        // ← the page heading
+        active: "profile",
+        title: "My Profile",
     };
     </script>
 

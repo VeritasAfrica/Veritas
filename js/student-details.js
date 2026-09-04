@@ -63,7 +63,17 @@ async function loadStudent() {
   document.getElementById("studentMatric").textContent = data.matric_number || "Pending Assignment";
 
   const initials = (data.first_name[0] + data.last_name[0]).toUpperCase();
-  document.getElementById("studentAvatar").textContent = initials;
+  const avatarEl = document.getElementById("studentAvatar");
+
+  if (data.avatar_url) {
+    avatarEl.style.backgroundImage = `url(${data.avatar_url})`;
+    avatarEl.style.backgroundSize = "cover";
+    avatarEl.style.backgroundPosition = "center";
+    avatarEl.textContent = "";
+  } else {
+    avatarEl.style.backgroundImage = "";
+    avatarEl.textContent = initials;
+  }
 
   document.getElementById("first_name").value = data.first_name;
   document.getElementById("middle_name").value = data.middle_name || "";

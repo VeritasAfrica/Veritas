@@ -22,6 +22,10 @@ uploadBtn.addEventListener("click", () => {
   window.location.href = `upload-material.html?session=${sessionId}`;
 });
 
+document.getElementById("editSession").addEventListener("click", () => {
+  window.location.href = `create-session.html?id=${sessionId}`;
+});
+
 /* ==========================
 Publish / Unpublish Toggle
 (controls whether students can see this
